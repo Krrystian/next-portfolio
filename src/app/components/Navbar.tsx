@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="fixed h-[5vh] w-full flex justify-between bg-white uppercase px-4">
+    <div className="fixed h-[5vh] z-10 w-full flex justify-between bg-white uppercase px-4">
       <div className="flex items-center">
         <a className="text-xl cursor-pointer">Krystian Cichorz</a>
       </div>
