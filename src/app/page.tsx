@@ -1,10 +1,11 @@
 "use client";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect } from "react";
-import SplitType from "split-type";
 import { LuMoveDown } from "react-icons/lu";
 import ProjectModel from "./components/ProjectModel";
+import animationHook from "./hooks/animationHook";
+import Link from "next/link";
+import Input from "./components/Input";
+import { useEffect, useState } from "react";
+import { gsap } from "gsap";
 
 export default function Home() {
   const frontend: Map<string, string> = new Map([
@@ -44,362 +45,31 @@ export default function Home() {
     ["VSCode", "https://img.icons8.com/color/160/visual-studio-code-2019.png"],
     ["Postman", "https://img.icons8.com/dusk/160/postman-api.png"],
   ]);
+  let submitButton = gsap.timeline({ paused: true });
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    //Animate landing page
-    const l1 = new SplitType("#l1", { types: "chars" });
-    const l2 = new SplitType("#l2", { types: "chars" });
-    const l3 = new SplitType("#l3", { types: "chars" });
-
-    const chars_l1 = l1.chars;
-    const chars_l2 = l2.chars;
-    const chars_l3 = l3.chars;
-
-    gsap.fromTo(
-      [chars_l1, chars_l2, chars_l3],
-      {
-        y: 100,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.05,
-        duration: 2,
+    submitButton
+      .to("#contact_button", {
+        width: "50%",
+        duration: 1,
         ease: "power4.out",
-      }
-    );
-    gsap.fromTo(
-      "#swipe_down",
-      {
-        opacity: 0,
-      },
-      {
-        delay: 4,
-        opacity: 1,
-        y: 20,
-        repeat: -1,
-        yoyo: true,
-        duration: 1,
-      }
-    );
-    gsap.fromTo(
-      "#project_more",
-      {
-        opacity: 0,
-      },
-      {
-        duration: 1,
-        opacity: 1,
-        delay: 1.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#project_more",
-        },
-      }
-    );
-
-    //About me
-    gsap.fromTo(
-      "#about_me_title",
-      {
-        top: window.innerHeight / 2,
-      },
-      {
-        duration: 1,
-        top: "5vh",
-        delay: 0.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_title",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#about_me_experience",
-      {
-        opacity: 0,
-        top: window.innerHeight / 2,
-      },
-      {
-        duration: 0.5,
-        opacity: 1,
-        delay: 1.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_experience",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.to("#about_me_experience", {
-      duration: 1,
-      top: "15vh",
-      right: "4vw",
-      delay: 2,
-      ease: "power1.inOut",
-      scrollTrigger: {
-        scroller: "#hero",
-        trigger: "#about_me_experience",
-        start: "top 60%",
-        end: "top 20%",
-      },
-    });
-    gsap.fromTo(
-      "#about_me_links",
-      {
-        opacity: 0,
-        top: window.innerHeight / 2,
-      },
-      {
-        duration: 0.5,
-        opacity: 1,
-        delay: 2.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_links",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.to("#about_me_links", {
-      duration: 1,
-      top: "75vh",
-      right: "4vw",
-      delay: 3,
-      ease: "power1.inOut",
-      scrollTrigger: {
-        scroller: "#hero",
-        trigger: "#about_me_links",
-        start: "top 60%",
-        end: "top 20%",
-      },
-    });
-    gsap.fromTo(
-      "#about_me_hobbies",
-      {
-        opacity: 0,
-        top: window.innerHeight / 2,
-      },
-      {
-        duration: 0.5,
-        opacity: 1,
-        delay: 3.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_hobbies",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.to("#about_me_hobbies", {
-      duration: 1,
-      right: "4vw",
-      top: "45vh",
-      delay: 4,
-      ease: "power1.inOut",
-      scrollTrigger: {
-        scroller: "#hero",
-        trigger: "#about_me_hobbies",
-        start: "top 60%",
-        end: "top 20%",
-      },
-    });
-    gsap.fromTo(
-      "#about_me_technologies",
-      {
-        opacity: 0,
-        top: window.innerHeight / 2,
-      },
-      {
-        duration: 0.5,
-        opacity: 1,
-        delay: 4.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_links",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#about_me_technologies",
-      {
-        top: window.innerHeight / 2,
-      },
-      {
-        duration: 1,
-        top: "15vh",
-        left: "4vw",
-        delay: 5,
-        ease: "power1.inOut",
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_links",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      [
-        "#about_me_experience_body",
-        "#about_me_technologies_body",
-        "#about_me_hobbies_body",
-        "#about_me_links_body",
-      ],
-      {
-        opacity: 0,
-        display: "none",
-      },
-      {
-        duration: 0.5,
-        opacity: 1,
-        display: "",
-        delay: 6,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#about_me_experience_body",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-
-    //Contact animation
-    gsap.fromTo(
-      "#left_wall",
-      {
-        width: "0vw",
-        left: "0vw",
-      },
-      {
-        duration: 1,
-        delay: 1,
-        width: "50vw",
-        ease: "none",
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#left_wall",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#left_wall",
-      {
-        left: "0vw",
-      },
-      {
-        duration: 1,
-        delay: 2,
-        left: "50vw",
-        ease: "none",
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#left_wall",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#left_wall",
-      { left: "50vw" },
-      {
-        duration: 1,
-        delay: 3,
-        left: "100vw",
-        ease: "none",
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#left_wall",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-
-    //Concat text
-    gsap.fromTo(
-      "#contact_title_left",
-      {
-        opacity: 1,
-      },
-      {
-        duration: 0.1,
-        delay: 2,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#contact_title_left",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#contact_title_left_top",
-      {
-        opacity: 0,
-      },
-      {
-        duration: 0.1,
-        delay: 2,
-        opacity: 1,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#contact_title_left",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#contact_title_middle",
-      {
-        display: "",
-      },
-      {
-        duration: 0.1,
-        delay: 2.5,
-        opacity: 0,
-        display: "hidden",
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#contact_title_middle",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
-    gsap.fromTo(
-      "#contact_title_right_top",
-      {
-        opacity: 0,
-      },
-      {
-        duration: 0.1,
-        delay: 2.5,
-        opacity: 1,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#contact_title_middle",
-          start: "top 60%",
-          end: "top 20%",
-        },
-      }
-    );
+      })
+      .to("#contact_button", {
+        height: "100%",
+      });
   }, []);
+
+  const animations = animationHook();
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      email: formData.get("Email"),
+      name: formData.get("Name"),
+      message: formData.get("Message"),
+    };
+    console.log(data);
+    submitButton.play();
+  };
 
   return (
     <section
@@ -408,13 +78,16 @@ export default function Home() {
     >
       <div className="relative h-screen min-w-screen flex justify-center items-center snap-center">
         <div className="flex flex-col gap-4">
-          <p className="text-7xl font-extrabold split" id="l1">
+          <p className="text-7xl font-extrabold opacity-0" id="l1">
             Hello! My name is
           </p>
-          <p className="text-9xl text-green-500 font-extrabold" id="l2">
+          <p
+            className="text-9xl text-green-500 font-extrabold opacity-0"
+            id="l2"
+          >
             Krystian Cichorz.
           </p>
-          <p className="text-7xl font-extrabold" id="l3">
+          <p className="text-7xl font-extrabold opacity-0" id="l3">
             I'm a fullstack developer.
           </p>
         </div>
@@ -437,7 +110,14 @@ export default function Home() {
         </div>
         <div className="absolute bottom-8 text-xl italic" id="project_more">
           and many, many &nbsp;
-          <span className="text-green-500 cursor-pointer">more</span>...
+          <Link
+            href="/projects"
+            prefetch
+            className="text-green-500 cursor-pointer"
+          >
+            more
+          </Link>
+          ...
         </div>
       </div>
 
@@ -625,13 +305,42 @@ export default function Home() {
             TACT
           </span>
         </h2>
-
         <figure
-          className="absolute h-full bg-black left-0 w-0 -translate-x-8"
+          className="absolute h-full bg-black left-0 w-0 -translate-x-8 z-10"
           id="left_wall"
         />
 
-        <footer className="absolute bottom-0 w-full bg-black text-white px-2 py-1 flex justify-between">
+        <div className="grid grid-cols-2 w-full h-full justify-center items-center select-auto">
+          <form
+            className="w-full flex justify-center relative"
+            id="contact_form"
+            method="post"
+            onSubmit={onSubmit}
+          >
+            <div className="flex flex-col gap-8 w-1/2">
+              <Input placeholder="Email" type="email" />
+              <Input placeholder="Name" />
+              <Input placeholder="Message" type="textarea" />
+              <button
+                type="submit"
+                id="contact_button"
+                className="bg-green-500 text-white py-2 w-1/3 self-center absolute bottom-0 translate-y-16"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+          <div className="text-xl" id="contact_words">
+            <p>
+              I hope you enjoyed your stay here. It was a pleasure to host you
+              in my humble corner. Hope to talk to you again someday, but for
+              now, take care and experience your beautiful day.
+            </p>
+            <br />
+            <p className="italic font-bold text-black/60">Krystian Cichorz</p>
+          </div>
+        </div>
+        <footer className="absolute bottom-0 w-full bg-black text-white px-2 py-1 z-20 flex justify-between">
           <p>
             Designed by{" "}
             <a href="" className="underline">
