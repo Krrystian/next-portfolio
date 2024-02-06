@@ -45,22 +45,41 @@ export default function Home() {
     ["VSCode", "https://img.icons8.com/color/160/visual-studio-code-2019.png"],
     ["Postman", "https://img.icons8.com/dusk/160/postman-api.png"],
   ]);
-  let submitButton = gsap.timeline({ paused: true });
+  let submitButton = gsap.timeline({ paused: true, once: true });
   useEffect(() => {
     submitButton
       .to("#contact_button", {
         width: "50%",
-        duration: 1,
-        ease: "power4.out",
+        cursor: "default",
+        duration: 0.5,
+        ease: "linear",
       })
       .to("#contact_button", {
-        height: "100%",
+        height: "110%",
+        duration: 1,
+        color: "rgba(34,197,94,0)",
+        transform: "translateY(16px)",
+        ease: "linear",
+      })
+      .to("#contact_body", {
+        opacity: 0,
+        duration: 0.1,
+        ease: "linear",
+      })
+      .to("#contact_hidden", {
+        duration: 0.5,
+        height: "auto",
+        ease: "linear",
       });
   }, []);
 
   const animations = animationHook();
+  const [loading, setLoading] = useState(false);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
+
     const formData = new FormData(e.currentTarget);
     const data = {
       email: formData.get("Email"),
@@ -68,7 +87,7 @@ export default function Home() {
       message: formData.get("Message"),
     };
     console.log(data);
-    submitButton.play();
+    submitButton.play(0);
   };
 
   return (
@@ -92,7 +111,7 @@ export default function Home() {
           </p>
         </div>
         <div
-          className="absolute bottom-8 flex items-center flex-col"
+          className="absolute bottom-8 flex items-center flex-col opacity-0"
           id="swipe_down"
         >
           <p className="text-base text-green-900">Scroll down to continue</p>
@@ -318,9 +337,11 @@ export default function Home() {
             onSubmit={onSubmit}
           >
             <div className="flex flex-col gap-8 w-1/2">
-              <Input placeholder="Email" type="email" />
-              <Input placeholder="Name" />
-              <Input placeholder="Message" type="textarea" />
+              <div id="contact_body" className="flex flex-col gap-8">
+                <Input placeholder="Email" type="email" />
+                <Input placeholder="Name" />
+                <Input placeholder="Message" type="textarea" />
+              </div>
               <button
                 type="submit"
                 id="contact_button"
@@ -337,6 +358,10 @@ export default function Home() {
               now, take care and experience your beautiful day.
             </p>
             <br />
+            <p id="contact_hidden" className=" h-0 overflow-hidden">
+              Thank you for contacting me. I will try to respond to your message
+              in the next few days.
+            </p>
             <p className="italic font-bold text-black/60">Krystian Cichorz</p>
           </div>
         </div>
