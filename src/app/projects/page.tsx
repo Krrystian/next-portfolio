@@ -13,12 +13,11 @@ const Page = () => {
         trigger: "#i2",
         start: "top 80%",
         end: "top 20%",
-        markers: true,
       },
     });
   }, []);
   return (
-    <section className="snap-mandatory snap-y text-3xl flex w-screen min-h-screen justify-center items-center flex-col">
+    <section className="snap-mandatory snap-y text-3xl flex w-screen min-h-screen justify-center items-center flex-col scroll-smooth">
       <div className="h-screen flex items-center w-full justify-center">
         <p id="i1">Item 1</p>
       </div>

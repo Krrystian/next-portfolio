@@ -86,7 +86,6 @@ export default function Home() {
       name: formData.get("Name"),
       message: formData.get("Message"),
     };
-    console.log(data);
     submitButton.play(0);
   };
 
@@ -140,7 +139,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative h-screen flex flex-col justify-center items-center snap-center py-[5vh]">
+      <div
+        className="relative h-screen flex flex-col justify-center items-center snap-center py-[5vh]"
+        id="about_me"
+      >
         <h2
           className="absolute tracking-widest font-extrabold text-4xl flex items-center justify-center w-full"
           id="about_me_title"
@@ -308,7 +310,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="relative h-screen min-w-screen flex justify-center items-center snap-center">
+      <div
+        className="relative h-screen min-w-screen flex justify-center items-center snap-center"
+        id="contact"
+      >
         <h2
           className="absolute tracking-widest col-span-3 text-4xl flex items-center justify-center w-full font-extrabold"
           id="contact_title_middle"
