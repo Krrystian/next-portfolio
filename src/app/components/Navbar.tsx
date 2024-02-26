@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <div className="fixed h-[5vh] z-50 w-full flex justify-between bg-white uppercase px-4">
       <div className="flex items-center">
-        <a className="text-xl cursor-pointer">Krystian Cichorz</a>
+        <ScrollTo target="landing_page" text="Krystian Cichorz" />
       </div>
       <div className="flex items-center gap-4">
         <ScrollTo target="about_me" text="About me" />

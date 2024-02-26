@@ -94,7 +94,10 @@ export default function Home() {
       className="snap-y snap-mandatory overflow-x-hidden overflow-y-scroll h-[100vh] w-screen no-scrollbar px-8 select-none cursor-default"
       id="hero"
     >
-      <div className="relative h-screen min-w-screen flex justify-center items-center snap-center">
+      <div
+        className="relative h-screen min-w-screen flex justify-center items-center snap-center"
+        id="landing_page"
+      >
         <div className="flex flex-col gap-4">
           <p className="text-7xl font-extrabold opacity-0" id="l1">
             Hello! My name is
