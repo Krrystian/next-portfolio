@@ -79,13 +79,13 @@ export default function Home() {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
-
     const formData = new FormData(e.currentTarget);
     const data = {
       email: formData.get("Email"),
       name: formData.get("Name"),
       message: formData.get("Message"),
     };
+    console.log(data);
     submitButton.play(0);
   };
 
