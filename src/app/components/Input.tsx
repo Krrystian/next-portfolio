@@ -18,6 +18,7 @@ const Input: React.FC<InputProps> = ({ placeholder, type }) => {
           onBlur={() => setOnFocus(false)}
           onChange={(e) => setValue(e.target.value)}
           required
+          autoComplete="input"
         />
       ) : (
         <input
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({ placeholder, type }) => {
           onBlur={() => setOnFocus(false)}
           onChange={(e) => setValue(e.target.value)}
           required
+          autoComplete="input"
         />
       )}
       <span className="absolute bottom-0 h-1 left-0 w-full bg-black" />
