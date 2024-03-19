@@ -2,8 +2,13 @@
 import React, { useState } from "react";
 import Input from "../components/Input";
 import { useFormStatus } from "react-dom";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 const Page = () => {
+  const { data: session } = useSession();
+  if (session && session.user) {
+    redirect("/dboard");
+  }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,7 +52,6 @@ const Page = () => {
         <Input placeholder="Password" type="password" />
         <LoginButton />
       </form>
-      {/* <div>{errorMessage && <p>{errorMessage}</p>}</div> */}
     </section>
   );
 };
