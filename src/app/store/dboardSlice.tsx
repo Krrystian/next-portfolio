@@ -13,7 +13,6 @@ export const dboardSlice = createSlice({
   reducers: {
     toggleAddSkillModal: (state) => {
       state.addSkillModal = !state.addSkillModal;
-      console.log("addSkillModal: ", state.addSkillModal);
     },
   },
 });

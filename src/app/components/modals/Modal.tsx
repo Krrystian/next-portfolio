@@ -1,17 +1,14 @@
 "use client";
-import { toggleAddSkillModal } from "@/app/store/dboardSlice";
 import React from "react";
 import { IoClose } from "react-icons/io5";
-import { useDispatch } from "react-redux";
 interface ModelProps {
   title: string;
   body: React.ReactNode;
+  exit: () => void;
 }
-const Model: React.FC<ModelProps> = ({ title, body }) => {
-  const dispatch = useDispatch();
-
+const Model: React.FC<ModelProps> = ({ title, body, exit }) => {
   const closeModal = () => {
-    dispatch(toggleAddSkillModal());
+    exit();
   };
   return (
     <div className="bg-black/50 z-[100] h-full w-full absolute flex justify-center items-center">

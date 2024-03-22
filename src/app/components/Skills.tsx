@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleAddSkillModal } from "../store/dboardSlice";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 type Skill = {
   id: number;
   icon: string;
@@ -12,17 +14,30 @@ type Skill = {
 
 const Skills = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    // fetch("/api/skills")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setSkills(data);
-    //   });
+    fetch("/api/skill/getSkills").then(async (res) => {
+      const data = await res.json();
+      setSkills(data);
+      setLoading(false);
+    });
   }, []);
   const handleClick = () => {
     dispatch(toggleAddSkillModal());
   };
+  const handleDelete = (id: number) => {
+    fetch("/api/skill/deleteSkill", {
+      method: "DELETE",
+      body: JSON.stringify({ id }),
+    }).then(async (res) => {
+      const data = await res.json();
+      if (res.status === 201) {
+        setSkills((prev) => prev.filter((skill) => skill.id !== id));
+      }
+    });
+  };
+  if (loading) return <div className="text-3xl">Loading...</div>;
   return (
     <div className="w-[80%]">
       <button
@@ -33,7 +48,7 @@ const Skills = () => {
       </button>
       <table className="border w-full">
         <thead>
-          <tr className="border-2">
+          <tr className="border-2 *:border-black border-black cursor-default">
             <th className="border-r-2 w-[20%]">Icon</th>
             <th className="border-r-2 w-[40%]">Description</th>
             <th className="border-r-2 w-[20%]">Category</th>
@@ -43,10 +58,25 @@ const Skills = () => {
         <tbody>
           {/* Map over skills and render each skill as a table row */}
           {skills.map((skill) => (
-            <tr key={skill.id}>
-              <td>{skill.icon}</td>
-              <td>{skill.description}</td>
-              <td>{skill.Category?.name}</td>
+            <tr
+              key={skill.id}
+              className="*:text-center *:p-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
+            >
+              <td className="border-r-2">{skill.icon}</td>
+              <td className="border-r-2">{skill.description}</td>
+              <td className="border-r-2">{skill.Category?.name}</td>
+              <td className="flex gap-x-4 items-center justify-center">
+                <FaEdit size={20} className="cursor-pointer">
+                  Edit
+                </FaEdit>
+                <FaRegTrashAlt
+                  size={20}
+                  className="cursor-pointer"
+                  onClick={() => handleDelete(skill.id)}
+                >
+                  Delete
+                </FaRegTrashAlt>
+              </td>
             </tr>
           ))}
         </tbody>
