@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { toggleAddSkillModal } from "../store/dboardSlice";
 type Skill = {
   id: number;
   icon: string;
@@ -10,16 +12,23 @@ type Skill = {
 
 const Skills = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetch("/api/skills")
-      .then((res) => res.json())
-      .then((data) => {
-        setSkills(data);
-      });
+    // fetch("/api/skills")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setSkills(data);
+    //   });
   }, []);
+  const handleClick = () => {
+    dispatch(toggleAddSkillModal());
+  };
   return (
     <div className="w-[80%]">
-      <button className="p-1 border-black rounded-xl border-2 hover:bg-black hover:text-white transition-colors duration-300 float-end mb-2">
+      <button
+        className="p-1 border-black rounded-xl border-2 hover:bg-black hover:text-white transition-colors duration-300 float-end mb-2"
+        onClick={handleClick}
+      >
         Add new
       </button>
       <table className="border w-full">
