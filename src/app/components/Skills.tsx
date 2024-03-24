@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleAddSkillModal } from "../store/dboardSlice";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
 type Skill = {
   id: number;
   icon: string;
@@ -31,7 +30,6 @@ const Skills = () => {
       method: "DELETE",
       body: JSON.stringify({ id }),
     }).then(async (res) => {
-      const data = await res.json();
       if (res.status === 201) {
         setSkills((prev) => prev.filter((skill) => skill.id !== id));
       }
@@ -56,22 +54,24 @@ const Skills = () => {
           </tr>
         </thead>
         <tbody>
-          {/* Map over skills and render each skill as a table row */}
           {skills.map((skill) => (
             <tr
               key={skill.id}
-              className="*:text-center *:p-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
+              className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
             >
-              <td className="border-r-2">{skill.icon}</td>
+              <td className="border-r-2 flex justify-center items-center">
+                <img
+                  width={30}
+                  height={30}
+                  src={`https://img.icons8.com/officel/160/000000/${skill.icon}`}
+                />
+              </td>
               <td className="border-r-2">{skill.description}</td>
               <td className="border-r-2">{skill.Category?.name}</td>
-              <td className="flex gap-x-4 items-center justify-center">
-                <FaEdit size={20} className="cursor-pointer">
-                  Edit
-                </FaEdit>
+              <td className="w-full">
                 <FaRegTrashAlt
                   size={20}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-center w-full"
                   onClick={() => handleDelete(skill.id)}
                 >
                   Delete

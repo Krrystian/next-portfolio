@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import Skills from "../components/Skills";
+import AboutMe from "../components/AboutMe";
 
 const Page = () => {
   const { data: session } = useSession();
@@ -53,7 +54,7 @@ const Page = () => {
       <div className="relative h-full top-[5vh] flex flex-col col-span-3 items-center justify-center">
         <h1 className="absolute top-0 p-4 text-3xl">{options[selected]}</h1>
         {selected === 0 && <div>Messages</div>}
-        {selected === 1 && <div>About Me</div>}
+        {selected === 1 && <AboutMe />}
         {selected === 2 && <Skills />}
         {selected === 3 && <div>Projects</div>}
       </div>

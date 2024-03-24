@@ -95,7 +95,7 @@ export default function Home() {
       id="hero"
     >
       <div
-        className="relative h-screen min-w-screen flex justify-center items-center snap-center"
+        className="relative h-screen min-w-screen flex justify-center items-center snap-center snap-always"
         id="landing_page"
       >
         <div className="flex flex-col gap-4">
@@ -120,7 +120,7 @@ export default function Home() {
           <LuMoveDown className="text-6xl text-green-500" />
         </div>
       </div>
-      <div className="relative h-screen flex justify-center items-center snap-center py-[5vh]">
+      <div className="relative h-screen flex justify-center items-center snap-center snap-always py-[5vh]">
         <h2 className="absolute top-[5vh] tracking-widest col-span-3 text-4xl flex items-center justify-center w-full font-extrabold">
           PROJECTS
         </h2>
@@ -143,7 +143,7 @@ export default function Home() {
       </div>
 
       <div
-        className="relative h-screen flex flex-col justify-center items-center snap-center py-[5vh]"
+        className="relative h-screen flex flex-col justify-center items-center snap-center snap-always py-[5vh]"
         id="about_me"
       >
         <h2
@@ -314,7 +314,7 @@ export default function Home() {
         </div>
       </div>
       <div
-        className="relative h-screen min-w-screen flex justify-center items-center snap-center"
+        className="relative h-screen min-w-screen flex justify-center items-center snap-center snap-always"
         id="contact"
       >
         <h2
