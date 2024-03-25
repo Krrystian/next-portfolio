@@ -45,3 +45,10 @@ model Skill {
   Category    Category? @relation(fields: [categoryId], references: [id])
   categoryId  String?   @db.ObjectId
 }
+
+model AboutMe {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  section     String
+  description String
+  createdAt   DateTime @default(now())
+}
