@@ -75,6 +75,7 @@ export default function Home() {
 
   const animations = animationHook();
   const [loading, setLoading] = useState(false);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
@@ -85,8 +86,18 @@ export default function Home() {
       name: formData.get("Name"),
       message: formData.get("Message"),
     };
-    console.log(data);
     submitButton.play(0);
+    try {
+      await fetch("/api/contact/newMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then(() => setLoading(false));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -391,4 +402,3 @@ export default function Home() {
     </section>
   );
 }
-//ICONS BY https://icons8.com/ <-ADD

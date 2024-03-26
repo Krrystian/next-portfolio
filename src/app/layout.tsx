@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "./components/SessionProvider";
 import StoreProvider from "./providers/Provider";
 import AddSkillModal from "./components/modals/AddSkillModal";
+import ShowMessageModal from "./components/modals/ShowMessageModal";
 const lato = Lato({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default async function RootLayout({
         <StoreProvider>
           <SessionProvider session={session}>
             <AddSkillModal />
+            <ShowMessageModal />
             <Navbar />
             {children}
           </SessionProvider>

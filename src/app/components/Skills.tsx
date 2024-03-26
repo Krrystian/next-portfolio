@@ -73,9 +73,7 @@ const Skills = () => {
                   size={20}
                   className="cursor-pointer text-center w-full"
                   onClick={() => handleDelete(skill.id)}
-                >
-                  Delete
-                </FaRegTrashAlt>
+                />
               </td>
             </tr>
           ))}

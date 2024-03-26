@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { useState } from "react";
 import Skills from "../components/Skills";
 import AboutMe from "../components/AboutMe";
+import Messages from "../components/Messages";
 
 const Page = () => {
   const { data: session } = useSession();
@@ -53,7 +54,7 @@ const Page = () => {
       </div>
       <div className="relative h-full top-[5vh] flex flex-col col-span-3 items-center justify-center">
         <h1 className="absolute top-0 p-4 text-3xl">{options[selected]}</h1>
-        {selected === 0 && <div>Messages</div>}
+        {selected === 0 && <Messages />}
         {selected === 1 && <AboutMe />}
         {selected === 2 && <Skills />}
         {selected === 3 && <div>Projects</div>}
