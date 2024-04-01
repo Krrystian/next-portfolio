@@ -7,7 +7,6 @@ import { FaRegCopy } from "react-icons/fa";
 
 const ShowMessageModal = () => {
   const dispatch = useDispatch();
-  useEffect(() => {}, []);
   const message = useSelector(
     (state: any) => state.dboardSlice.showMessageModal
   );
@@ -15,7 +14,7 @@ const ShowMessageModal = () => {
   const body = (
     <div>
       <h3 className="text-xl flex gap-4">
-        <span className=" font-bold">Email:</span> {message.body.email}{" "}
+        <span className=" font-bold">Email:</span> {message.body.email}
         <FaRegCopy
           className="cursor-pointer self-center"
           onClick={() => {

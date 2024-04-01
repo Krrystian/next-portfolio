@@ -2,9 +2,10 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState } from "react";
-import Skills from "../components/Skills";
-import AboutMe from "../components/AboutMe";
-import Messages from "../components/Messages";
+import Skills from "../components/dboardComponents/Skills";
+import AboutMe from "../components/dboardComponents/AboutMe";
+import Messages from "../components/dboardComponents/Messages";
+import Projects from "../components/dboardComponents/Projects";
 
 const Page = () => {
   const { data: session } = useSession();
@@ -57,7 +58,7 @@ const Page = () => {
         {selected === 0 && <Messages />}
         {selected === 1 && <AboutMe />}
         {selected === 2 && <Skills />}
-        {selected === 3 && <div>Projects</div>}
+        {selected === 3 && <Projects />}
       </div>
     </section>
   );
