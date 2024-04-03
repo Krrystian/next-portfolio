@@ -11,6 +11,7 @@ interface dboardState {
       message: string;
     };
   };
+  addProjectModal: boolean;
 }
 const initialState: dboardState = {
   addSkillModal: false,
@@ -23,6 +24,7 @@ const initialState: dboardState = {
       message: "",
     },
   },
+  addProjectModal: false,
 };
 
 export const dboardSlice = createSlice({
@@ -36,10 +38,16 @@ export const dboardSlice = createSlice({
       state.showMessageModal.show = !state.showMessageModal.show;
       state.showMessageModal.body = action.payload;
     },
+    toggleProjectModal: (state) => {
+      state.addProjectModal = !state.addProjectModal;
+    },
   },
 });
 
-export const { toggleAddSkillModal, toggleShowMessageModal } =
-  dboardSlice.actions;
+export const {
+  toggleAddSkillModal,
+  toggleShowMessageModal,
+  toggleProjectModal,
+} = dboardSlice.actions;
 
 export default dboardSlice.reducer;

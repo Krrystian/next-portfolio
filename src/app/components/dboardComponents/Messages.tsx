@@ -62,9 +62,7 @@ const Messages = () => {
                 contact.wasSeen ? "odd:bg-gray-200" : "bg-red-500/60"
               }`}
             >
-              <td className="border-r-2 flex justify-center items-center">
-                {contact.name}
-              </td>
+              <td className="border-r-2">{contact.name}</td>
               <td className="border-r-2">{contact.email}</td>
               <td className="border-r-2">
                 {contact.message.length > 50

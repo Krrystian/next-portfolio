@@ -1,7 +1,12 @@
+import { toggleProjectModal } from "@/app/store/dboardSlice";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const Projects = () => {
-  const handleClick = () => {};
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(toggleProjectModal());
+  };
   return (
     <div className="w-[80%]">
       <button
