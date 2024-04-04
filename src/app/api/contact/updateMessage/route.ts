@@ -1,14 +1,12 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/db";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-
 export async function PUT(request: Request) {
     try {
         const session = await getServerSession();
         if (!session) {
           return NextResponse.json({message: "Unauthorized", status: 401});
         }
-        const prisma = new PrismaClient();
         const { id } = await request.json();
         console.log(id);
         const contact = await prisma.contact.update({

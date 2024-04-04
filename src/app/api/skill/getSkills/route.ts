@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/db";
 import { NextResponse } from "next/server";
 export async function GET(request: Request) {
     try {
-        const prisma = new PrismaClient();
+        
         const skills = await prisma.skill.findMany({
             include: {
             Category: {

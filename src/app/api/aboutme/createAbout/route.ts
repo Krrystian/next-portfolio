@@ -1,13 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/db";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+
 export async function POST(request: Request) {
     try {
         const session = await getServerSession();
         if (!session) {
           return NextResponse.json({message: "Unauthorized", status: 401});
         }
-        const prisma = new PrismaClient();
         const { title, description } = await request.json();
         const about = await prisma.aboutMe.create({
           data: {

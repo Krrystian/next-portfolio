@@ -1,7 +1,7 @@
 import NextAuth, { User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import prisma from "@/app/db";
 const handler = NextAuth({
     pages: {
      signIn: "/login",
@@ -27,7 +27,6 @@ const handler = NextAuth({
       password: { label: "Password", type: "password" }
     },
     async authorize(credentials, req): Promise<User | null> {
-      const prisma = new PrismaClient();
       const email = credentials?.email;
       if (email === undefined) return null;
       const password = credentials?.password;

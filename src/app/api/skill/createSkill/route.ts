@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/db";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 export async function POST(request: Request) {
@@ -7,7 +7,6 @@ export async function POST(request: Request) {
         if (!session) {
           return NextResponse.json({message: "Unauthorized", status: 401});
         }
-        const prisma = new PrismaClient();
         const { icon, desc, category } = await request.json();
         const skill = await prisma.skill.create({
             data: {

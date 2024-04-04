@@ -1,9 +1,8 @@
+import prisma from "@/app/db";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-
 export async function POST(request: Request) {
   try {
-    const prisma = new PrismaClient();
     const { name, email, message } = await request.json();
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     const isValidEmail = regex.test(email);
