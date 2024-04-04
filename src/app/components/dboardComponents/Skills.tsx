@@ -60,11 +60,7 @@ const Skills = () => {
               className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
             >
               <td className="border-r-2 flex justify-center items-center">
-                <img
-                  width={30}
-                  height={30}
-                  src={`https://img.icons8.com/officel/160/000000/${skill.icon}`}
-                />
+                <img width={30} height={30} src={skill.icon} />
               </td>
               <td className="border-r-2">{skill.description}</td>
               <td className="border-r-2">{skill.Category?.name}</td>
