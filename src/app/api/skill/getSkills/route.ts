@@ -5,17 +5,12 @@ export async function GET(request: Request) {
         
         const skills = await prisma.skill.findMany({
             include: {
-            Category: {
-                select: {
-                name: true
+                Category: {
+                    select: {
+                    name: true
+                    }
                 }
-            }
             },
-            orderBy: {
-            Category: {
-                name: 'asc'
-            }
-            }
         });
         return NextResponse.json(skills, {status: 200});
     } catch (error) {

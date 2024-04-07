@@ -1,4 +1,5 @@
 import prisma from "@/app/db";
+import { connect } from "http2";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -17,16 +18,17 @@ export async function POST(request: Request) {
         tools: tools_select
     };
     const combinedSelect = select.frontend.concat(select.backend, select.devops, select.languages, select.tools);
-    console.log(images);
     const project = await prisma.project.create({
       data: {
-        title,
-        description,
-        images,
-        github,
-        demo,
-        stack: combinedSelect,
-        favorite: false,
+      title,
+      description,
+      images,
+      github,
+      demo,
+      favorite: false,
+      stack: {
+        connect: combinedSelect.map((id:any) => ({ id })),
+      }
       },
     });
     return NextResponse.json(project, { status: 201 });
