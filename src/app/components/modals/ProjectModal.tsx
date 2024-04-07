@@ -22,10 +22,9 @@ const ProjectModal = () => {
   );
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
-    watch,
-    setValue,
   } = useForm<FieldValues>({
     defaultValues: {
       title: "",
@@ -36,9 +35,10 @@ const ProjectModal = () => {
       languages_select: [],
       tools_select: [],
       images: [],
+      github: "",
+      demo: "",
     },
   });
-  const images = watch("images");
 
   const fetchStacks = async () => {
     await fetch("/api/skill/getSkills").then((res) => {
@@ -50,8 +50,18 @@ const ProjectModal = () => {
   useEffect(() => {
     fetchStacks();
   }, []);
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    fetch("/api/project/addProject", {
+      body: JSON.stringify(data),
+      method: "POST",
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          console.log(data);
+          dispatch(toggleProjectModal());
+        });
+      }
+    });
   };
 
   const bodyBasic = (
@@ -197,6 +207,30 @@ const ProjectModal = () => {
       />
     </div>
   );
+  const bodyLinks = (
+    <div className="grid grid-cols-4 text-xl w-[60%] gap-4">
+      <label htmlFor="githubLinkProject" className="self-center text-center">
+        Github:
+      </label>
+      <input
+        type="text"
+        id="githubLinkProject"
+        {...register("github", { required: true })}
+        placeholder="Type link here..."
+        className="border-b-2 border-black px-1 py-2 outline-none col-span-3"
+      />
+      <label htmlFor="demoLinkProject" className="self-center text-center">
+        Demo:
+      </label>
+      <input
+        type="text"
+        id="demobLinkProject"
+        {...register("demo", { required: true })}
+        placeholder="Type link here..."
+        className="border-b-2 border-black px-1 py-2 outline-none col-span-3"
+      />
+    </div>
+  );
 
   let child: React.ReactElement;
   const currentStep = useMemo(() => {
@@ -209,7 +243,7 @@ const ProjectModal = () => {
       return bodyImages;
     } else if (step === STEPS.LINKS) {
       setButtonText((prev) => (prev = "FINISH"));
-      return <div>LINKS</div>;
+      return bodyLinks;
     }
     return <div>Error</div>;
   }, [step]);
@@ -221,7 +255,7 @@ const ProjectModal = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         {currentStep}
-        <div className="flex w-full *:p-4 gap-4 tracking-wider">
+        <div className="absolute bottom-4 px-4 flex w-full *:p-4 gap-4 tracking-wider">
           <button
             type="button"
             className="w-full hover:bg-black hover:text-white duration-300 border-black border-2 rounded-xl"
