@@ -3,27 +3,43 @@ import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Model from "./Modal";
 import { toggleProjectModal } from "@/app/store/dboardSlice";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import ImageUpload from "../ImageUpload";
 
 enum STEPS {
   BASIC = 0,
   STACK = 1,
-  SKILLS = 2,
-  IMAGES = 3,
-  LINKS = 4,
+  IMAGES = 2,
+  LINKS = 3,
 }
 const ProjectModal = () => {
   const dispatch = useDispatch();
   const [step, setStep] = React.useState<number>(0);
   const [skills, setSkills] = React.useState<any[]>([]);
   const [buttonText, setButtonText] = React.useState<string>("NEXT");
-  const [form, setForm] = React.useState<any>({
-    title: "",
-    description: "",
-    skills: [],
-  });
   const project = useSelector(
     (state: any) => state.dboardSlice.addProjectModal
   );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm<FieldValues>({
+    defaultValues: {
+      title: "",
+      description: "",
+      frontend_select: [],
+      backend_select: [],
+      devops_select: [],
+      languages_select: [],
+      tools_select: [],
+      images: [],
+    },
+  });
+  const images = watch("images");
+
   const fetchStacks = async () => {
     await fetch("/api/skill/getSkills").then((res) => {
       res.json().then((data) => {
@@ -34,24 +50,8 @@ const ProjectModal = () => {
   useEffect(() => {
     fetchStacks();
   }, []);
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(form.title, form.description, form.skills);
-  };
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, title: e.target.value });
-  };
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, description: e.target.value });
-  };
-  const handleSelectedSkillsChange = (e: any) => {
-    const values = Array.from(
-      e.currentTarget.selectedOptions,
-      (option: any) => option.value
-    );
-    setForm({ ...form, skills: values });
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
   };
 
   const bodyBasic = (
@@ -62,18 +62,16 @@ const ProjectModal = () => {
       <input
         type="text"
         id="title"
-        name="title"
+        {...register("title", { required: true })}
         placeholder="Type title here..."
         className="border-b-2 border-black px-1 py-2 outline-none col-span-3"
-        onChange={handleTitleChange}
       />
       <textarea
         id="description"
-        name="description"
+        {...register("description", { required: true })}
         placeholder="Type description here..."
         className=" px-1 py-2 outline-none col-span-4 resize-none"
         rows={10}
-        onChange={handleDescriptionChange}
       />
     </div>
   );
@@ -84,11 +82,10 @@ const ProjectModal = () => {
         <div>
           <h3 className="w-full text-center text-xl">FRONTEND</h3>
           <select
-            name="frontend_select"
             id="frontend_select"
+            {...register("frontend_select")}
             multiple
             className="w-full border-2 border-black outline-none"
-            onChange={handleSelectedSkillsChange}
           >
             {skills
               .filter((skill: any) => skill.Category.name === "FRONTEND")
@@ -106,8 +103,8 @@ const ProjectModal = () => {
         <div>
           <h3 className="w-full text-center text-xl ">BACKEND</h3>
           <select
-            name="backend_select"
             id="backend_select"
+            {...register("backend_select")}
             multiple
             className="w-full border-2 border-black outline-none"
           >
@@ -127,8 +124,8 @@ const ProjectModal = () => {
         <div>
           <h3 className="w-full text-center text-xl ">DEVOPS</h3>
           <select
-            name="devops_select"
             id="devops_select"
+            {...register("devops_select")}
             multiple
             className="w-full border-2 border-black outline-none"
           >
@@ -148,8 +145,8 @@ const ProjectModal = () => {
         <div>
           <h3 className="w-full text-center text-xl ">LANGUAGES</h3>
           <select
-            name="languages_select"
             id="languages_select"
+            {...register("languages_select")}
             multiple
             className="w-full border-2 border-black outline-none"
           >
@@ -169,8 +166,8 @@ const ProjectModal = () => {
         <div>
           <h3 className="w-full text-center text-xl ">TOOLS</h3>
           <select
-            name="tools_select"
             id="tools_select"
+            {...register("tools_select")}
             multiple
             className="w-full border-2 border-black outline-none"
           >
@@ -190,6 +187,16 @@ const ProjectModal = () => {
       </div>
     </div>
   );
+  const bodyImages = (
+    <div className="flex flex-col text-xl">
+      <ImageUpload
+        callback={(files) => {
+          setValue("images", files);
+          console.log(files);
+        }}
+      />
+    </div>
+  );
 
   let child: React.ReactElement;
   const currentStep = useMemo(() => {
@@ -197,11 +204,9 @@ const ProjectModal = () => {
       return bodyBasic;
     } else if (step === STEPS.STACK) {
       return bodyStack;
-    } else if (step === STEPS.SKILLS) {
-      return <div>SKILLS</div>;
     } else if (step === STEPS.IMAGES) {
       setButtonText("NEXT");
-      return <div>IMAGES</div>;
+      return bodyImages;
     } else if (step === STEPS.LINKS) {
       setButtonText((prev) => (prev = "FINISH"));
       return <div>LINKS</div>;
@@ -213,14 +218,15 @@ const ProjectModal = () => {
       <form
         className="flex justify-center flex-col items-center"
         id="project_form"
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit(onSubmit)}
       >
         {currentStep}
         <div className="flex w-full *:p-4 gap-4 tracking-wider">
           <button
+            type="button"
             className="w-full hover:bg-black hover:text-white duration-300 border-black border-2 rounded-xl"
             onClick={() => {
-              if (step > 0 && step <= 4) setStep(step - 1);
+              if (step > 0 && step <= 3) setStep(step - 1);
             }}
           >
             BACK
@@ -228,10 +234,10 @@ const ProjectModal = () => {
           <button
             type="button"
             className={`w-full hover:bg-black hover:text-white duration-300 border-black border-2 rounded-xl ${
-              step === 4 && "hidden"
+              step === 3 && "hidden"
             }`}
             onClick={() => {
-              if (step >= 0 && step < 4) setStep(step + 1);
+              if (step >= 0 && step < 3) setStep(step + 1);
             }}
           >
             {buttonText}
@@ -239,7 +245,7 @@ const ProjectModal = () => {
           <button
             type="submit"
             className={`w-full hover:bg-black hover:text-white duration-300 border-black border-2 rounded-xl ${
-              step === 4 ? "visible" : "hidden"
+              step === 3 ? "visible" : "hidden"
             }`}
           >
             {buttonText}
