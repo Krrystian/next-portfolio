@@ -1,12 +1,24 @@
 import { toggleProjectModal } from "@/app/store/dboardSlice";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+};
 const Projects = () => {
+  const [projects, setProjects] = React.useState<Project[]>([]);
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(toggleProjectModal());
   };
+  useEffect(() => {
+    fetch("/api/project/getProjects").then(async (res) => {
+      const data = await res.json();
+      setProjects(data);
+    });
+  }, []);
   return (
     <div className="w-[80%]">
       <button
@@ -23,7 +35,25 @@ const Projects = () => {
             <th className="w-[23%]">Operations</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {projects.map((project) => (
+            <tr
+              key={project.id}
+              className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
+            >
+              <td className="border-r-2">{project.title}</td>
+              <td className="border-r-2">
+                {project.description.length > 50
+                  ? `${project.description.slice(1, 50)}...`
+                  : project.description}
+              </td>
+              <td className="flex gap-4 justify-center">
+                <button className="">Show</button>
+                <button className="">Edit</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

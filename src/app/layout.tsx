@@ -8,6 +8,7 @@ import StoreProvider from "./providers/Provider";
 import AddSkillModal from "./components/modals/AddSkillModal";
 import ShowMessageModal from "./components/modals/ShowMessageModal";
 import ProjectModal from "./components/modals/ProjectModal";
+import { useSelector } from "react-redux";
 const lato = Lato({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
