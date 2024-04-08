@@ -20,7 +20,7 @@ const Projects = () => {
     });
   }, []);
   return (
-    <div className="w-[80%]">
+    <div className="w-[80%] h-[60%] overflow-y-auto">
       <button
         className="p-1 border-black rounded-xl border-2 hover:bg-black hover:text-white transition-colors duration-300 float-end mb-2"
         onClick={handleClick}

@@ -9,12 +9,9 @@ export async function GET(request: Request, {projectId}: {projectId: string}) {
             },
             include: {
             stack: {
-                include: {
-                Category: {
-                    select: {
-                    name: true
-                    }
-                },
+                select: {
+                icon: true,
+                description: true,
                 },
             },
             },

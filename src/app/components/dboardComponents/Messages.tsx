@@ -44,7 +44,7 @@ const Messages = () => {
   };
   if (loading) return <div className="text-3xl">Loading...</div>;
   return (
-    <div className="w-[80%]">
+    <div className="w-[80%] h-[60%] overflow-y-auto">
       <table className="border w-full">
         <thead>
           <tr className="border-2 *:border-black border-black cursor-default">
