@@ -17,7 +17,6 @@ export async function POST(request: Request) {
 
           },
         });
-        console.log(about);
         return NextResponse.json(about, {status: 201});
     } catch (error) {
         console.log(error);

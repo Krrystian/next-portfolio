@@ -6,46 +6,39 @@ import Link from "next/link";
 import Input from "./components/Input";
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
+import Image from "next/image";
+type Skill = {
+  id: number;
+  icon: string;
+  description: string;
+  Category: {
+    name: string;
+  };
+};
+type AboutMe = {
+  section: string;
+  description: string;
+};
 
 export default function Home() {
-  const frontend: Map<string, string> = new Map([
-    ["React", "https://img.icons8.com/officel/160/000000/react.png"],
-    [
-      "Redux",
-      "https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/160/external-redux-an-open-source-javascript-library-for-managing-application-state-logo-shadow-tal-revivo.png",
-    ],
-    ["Tailwind CSS", "https://img.icons8.com/fluency/160/tailwind_css.png"],
-    ["HTML", "https://img.icons8.com/color/160/html-5--v1.png"],
-    ["CSS", "https://img.icons8.com/color/160/css3.png"],
-    ["Bootstrap", "https://img.icons8.com/fluency/160/bootstrap.png"],
-  ]);
-  const backend: Map<string, string> = new Map([
-    ["Node.js", "https://img.icons8.com/color/160/nodejs.png"],
-    ["Express", "https://img.icons8.com/color/160/000000/express-js.png"],
-    ["MongoDB", "https://img.icons8.com/color/160/mongodb.png"],
-    ["MySQL", "https://img.icons8.com/color/160/mysql.png"],
-    ["Next.js", "https://img.icons8.com/color/160/nextjs.png"],
-    ["Laravel", "https://img.icons8.com/fluency/160/laravel.png"],
-  ]);
-  const devops: Map<string, string> = new Map([
-    ["Docker", "https://img.icons8.com/color/160/docker.png"],
-    ["Git", "https://img.icons8.com/color/160/git.png"],
-    ["GitHub", "https://img.icons8.com/fluency/160/github.png"],
-    ["Npm", "https://img.icons8.com/color/160/npm.png"],
-  ]);
-  const languages: Map<string, string> = new Map([
-    ["JavaScript", "https://img.icons8.com/color/160/javascript.png"],
-    ["TypeScript", "https://img.icons8.com/color/160/typescript.png"],
-    ["PHP", "https://img.icons8.com/color/160/php.png"],
-    ["Python", "https://img.icons8.com/color/160/python.png"],
-    ["Java", "https://img.icons8.com/color/160/java-coffee-cup-logo.png"],
-    ["C++", "https://img.icons8.com/color/160/c-plus-plus-logo.png"],
-  ]);
-  const tools: Map<string, string> = new Map([
-    ["VSCode", "https://img.icons8.com/color/160/visual-studio-code-2019.png"],
-    ["Postman", "https://img.icons8.com/dusk/160/postman-api.png"],
-  ]);
   let submitButton = gsap.timeline({ paused: true, once: true });
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [aboutMe, setAboutMe] = useState<AboutMe[]>([]);
+
+  const skillList = () => {
+    fetch("/api/skill/getSkills").then(async (res) => {
+      const data = await res.json();
+      setSkills(data);
+    });
+  };
+  const aboutMeList = () => {
+    fetch("/api/aboutme/getAbout").then(async (res) => {
+      const data = await res.json();
+      console.log(data);
+      setAboutMe(data);
+    });
+  };
+
   useEffect(() => {
     submitButton
       .to("#contact_button", {
@@ -71,6 +64,8 @@ export default function Home() {
         height: "auto",
         ease: "linear",
       });
+    skillList();
+    aboutMeList();
   }, []);
 
   const animations = animationHook();
@@ -171,12 +166,11 @@ export default function Home() {
             <span className="text-green-500">EXP</span>ERIENCE
           </h1>
           <div id="about_me_experience_body">
-            As a computer science student, being a full-stack developer means
-            having a comprehensive understanding of both front-end and back-end
-            technology, which allows me to design and develop applications that
-            meet a variety of user needs. During my studies, I gained a variety
-            of skills and knowledge that not only enhanced my technical skills,
-            but also shaped my professional identity.
+            {aboutMe
+              .filter((about) => about.section === "experience")
+              .map((about) => (
+                <p key={about.section}>{about.description}</p>
+              ))}
           </div>
         </div>
         <div
@@ -195,14 +189,24 @@ export default function Home() {
                 FRONTEND
               </h4>
               <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {Array.from(frontend.entries()).map(([key, value]) => (
-                  <div key={key} className="group relative flex justify-center">
-                    <img width="60" height="60" src={value} alt={key} />
-                    <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                      {key}
-                    </p>
-                  </div>
-                ))}
+                {skills
+                  .filter((skill) => skill.Category.name === "FRONTEND")
+                  .map((skill) => (
+                    <div
+                      key={skill.id}
+                      className="group relative flex justify-center"
+                    >
+                      <Image
+                        width="60"
+                        height="60"
+                        src={skill.icon}
+                        alt={skill.description}
+                      />
+                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
+                        {skill.description}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="w-full col-span-2 h-full border-4 border-green-500">
@@ -210,14 +214,24 @@ export default function Home() {
                 BACKEND
               </h4>
               <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {Array.from(backend.entries()).map(([key, value]) => (
-                  <div key={key} className="group relative flex justify-center">
-                    <img width="60" height="60" src={value} alt={key} />
-                    <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                      {key}
-                    </p>
-                  </div>
-                ))}
+                {skills
+                  .filter((skill) => skill.Category.name === "BACKEND")
+                  .map((skill) => (
+                    <div
+                      key={skill.id}
+                      className="group relative flex justify-center"
+                    >
+                      <Image
+                        width="60"
+                        height="60"
+                        src={skill.icon}
+                        alt={skill.description}
+                      />
+                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
+                        {skill.description}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="w-full col-span-2 h-full border-4 border-green-500">
@@ -225,14 +239,24 @@ export default function Home() {
                 DEVOPS
               </h4>
               <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {Array.from(devops.entries()).map(([key, value]) => (
-                  <div key={key} className="group relative flex justify-center">
-                    <img width="60" height="60" src={value} alt={key} />
-                    <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                      {key}
-                    </p>
-                  </div>
-                ))}
+                {skills
+                  .filter((skill) => skill.Category.name === "DEVOPS")
+                  .map((skill) => (
+                    <div
+                      key={skill.id}
+                      className="group relative flex justify-center"
+                    >
+                      <Image
+                        width="60"
+                        height="60"
+                        src={skill.icon}
+                        alt={skill.description}
+                      />
+                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
+                        {skill.description}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="w-full col-span-3 h-full border-4 border-green-500">
@@ -240,14 +264,24 @@ export default function Home() {
                 LANGUAGES
               </h4>
               <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {Array.from(languages.entries()).map(([key, value]) => (
-                  <div key={key} className="group relative flex justify-center">
-                    <img width="60" height="60" src={value} alt={key} />
-                    <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                      {key}
-                    </p>
-                  </div>
-                ))}
+                {skills
+                  .filter((skill) => skill.Category.name === "LANGUAGES")
+                  .map((skill) => (
+                    <div
+                      key={skill.id}
+                      className="group relative flex justify-center"
+                    >
+                      <Image
+                        width="60"
+                        height="60"
+                        src={skill.icon}
+                        alt={skill.description}
+                      />
+                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
+                        {skill.description}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="w-full col-span-3 h-full border-4 border-green-500">
@@ -255,14 +289,24 @@ export default function Home() {
                 TOOLS
               </h4>
               <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {Array.from(tools.entries()).map(([key, value]) => (
-                  <div key={key} className="group relative flex justify-center">
-                    <img width="60" height="60" src={value} alt={key} />
-                    <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                      {key}
-                    </p>
-                  </div>
-                ))}
+                {skills
+                  .filter((skill) => skill.Category.name === "TOOLS")
+                  .map((skill) => (
+                    <div
+                      key={skill.id}
+                      className="group relative flex justify-center"
+                    >
+                      <Image
+                        width="60"
+                        height="60"
+                        src={skill.icon}
+                        alt={skill.description}
+                      />
+                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
+                        {skill.description}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -276,13 +320,11 @@ export default function Home() {
             <span className="text-green-500">INT</span>ERESTS
           </h2>
           <div id="about_me_hobbies_body">
-            In addition to expanding programming skills, I find joy in exploring
-            other activities. I love anything that flies (except pigeons), have
-            parrots in my care, would like to take a glider course, and fly
-            drones. I also enjoy all kinds of competetive games. In addition, I
-            like to drink yerba, appreciating its flavors, and I have a fondness
-            for fountain pens, appreciating the elegance and craftsmanship of
-            these writing instruments.
+            {aboutMe
+              .filter((about) => about.section === "hobbies")
+              .map((about) => (
+                <p key={about.section}>{about.description}</p>
+              ))}
           </div>
         </div>
 
@@ -294,8 +336,15 @@ export default function Home() {
             L<span className="text-green-500">INK</span>S
           </h2>
           <div id="about_me_links_body" className="flex gap-8 justify-center">
-            <a href="">
-              <img
+            <a
+              href={
+                aboutMe
+                  .filter((about) => about.section === "linkedin")
+                  .map((about) => about.description)
+                  .flat()[0]
+              }
+            >
+              <Image
                 width="48"
                 height="48"
                 src="https://img.icons8.com/color/160/linkedin.png"
@@ -303,8 +352,15 @@ export default function Home() {
                 className="hover:rotate-[360deg] duration-[1500ms] cursor-pointer "
               />
             </a>
-            <a href="">
-              <img
+            <a
+              href={
+                aboutMe
+                  .filter((about) => about.section === "github")
+                  .map((about) => about.description)
+                  .flat()[0]
+              }
+            >
+              <Image
                 width="48"
                 height="48"
                 src="https://img.icons8.com/glyph-neue/160/github.png"
@@ -312,8 +368,16 @@ export default function Home() {
                 className="hover:rotate-[360deg] duration-[1500ms] cursor-pointer"
               />
             </a>
-            <a href="">
-              <img
+            <a
+              href={
+                `mailto:` +
+                aboutMe
+                  .filter((about) => about.section === "email")
+                  .map((about) => about.description)
+                  .flat()[0]
+              }
+            >
+              <Image
                 width="48"
                 height="48"
                 src="https://img.icons8.com/fluency/160/gmail-new.png"

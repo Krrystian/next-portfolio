@@ -4,13 +4,16 @@ export async function GET(request: Request) {
     try {
         
         const skills = await prisma.skill.findMany({
-            include: {
+            select: {
+                id: true,
+                icon: true,
+                description: true,
                 Category: {
                     select: {
-                    name: true
+                        name: true
                     }
                 }
-            },
+            }
         });
         return NextResponse.json(skills, {status: 200});
     } catch (error) {
