@@ -34,21 +34,15 @@ const page = () => {
 
   useEffect(() => {
     setLoaded(false);
-    console.log(projectId);
     const fetchProject = async () => {
       const url = `/api/project/getProject/${projectId}`;
-      console.log(url);
       const res = await fetch(url);
       const data = await res.json();
       setProject(data);
+      setLoaded(true);
     };
     fetchProject();
-    setLoaded(true);
   }, [projectId]);
-
-  const handleImageLoad = () => {
-    setLoaded(true);
-  };
 
   if (!loaded) {
     return (
@@ -62,7 +56,7 @@ const page = () => {
         <h1 className="col-span-8 text-4xl py-4 font-bold tracking-wider">
           {project.title}
         </h1>
-        <div className="col-span-5 relative group">
+        <div className="col-span-5 relative group flex justify-center">
           <Image
             src={
               project.images[currentIndex] ||
@@ -72,7 +66,6 @@ const page = () => {
             width={1200}
             height={500}
             className="rounded-md bg-cover bg-center duration-500 overflow-hidden select-none shadow-2xl"
-            onLoad={handleImageLoad}
           />
           <div className="absolute flex -bottom-8 left-[50%] translate-x-[-50%]">
             {project.images.map((_, index) =>
@@ -121,12 +114,16 @@ const page = () => {
         <div className="col-span-3 px-8 flex flex-col justify-between cursor-default">
           <p className="text-xl text-justify">{project.description}</p>
           <div className="flex flex-col text-xl text-green-500 gap-4 font-bold">
-            <Link href={project.demo}>Demo {"> >"}</Link>
-            <Link href={project.github}>Github {"> >"} </Link>
+            <Link href={project.demo} className="flex max-w-[100px]">
+              Demo {"> >"}
+            </Link>
+            <Link href={project.github} className="flex max-w-[100px]">
+              Github {"> >"}{" "}
+            </Link>
           </div>
           <div>
             <p className="text-xl font-bold py-2"> Technologies:</p>
-            <div className="*:bg-gray-500/60 flex gap-4 *:px-2 *:py-1 flex-wrap *:w-[150px]">
+            <div className="*:bg-gray-500/30 *:rounded-md flex gap-4 *:px-2 *:py-1 flex-wrap *:w-[150px]">
               {project.stack.map((stack, index) => (
                 <p key={index} className="text-lg text-center">
                   {stack.description}

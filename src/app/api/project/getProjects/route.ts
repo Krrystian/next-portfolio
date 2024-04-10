@@ -7,7 +7,8 @@ export async function GET() {
             select: {
             title: true,
             id: true,
-            description: true
+            shortDescription: true,
+            images: true,
             }
         });
         return NextResponse.json(projects, {status: 200});

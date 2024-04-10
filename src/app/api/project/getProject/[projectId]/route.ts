@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request, { params }: { params: { projectId: string } }) {
     try {
-      console.log(params.projectId);
       const project = await prisma.project.findFirst({
         where: {
           id: params.projectId

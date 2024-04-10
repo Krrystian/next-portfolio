@@ -1,56 +1,38 @@
 "use client";
 import React from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
 import ProjectModel from "../components/ProjectModel";
+type Project = {
+  id: string;
+  title: string;
+  shortDescription: string;
+  images: string[];
+};
 const Page = () => {
+  const [projects, setProjects] = React.useState<Project[]>([]);
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to("#i2", {
-      x: 100,
-      duration: 1,
-      scrollTrigger: {
-        trigger: "#i2",
-        start: "top 80%",
-        end: "top 20%",
-      },
-    });
+    const fetchProjects = async () => {
+      const url = "/api/project/getProjects";
+      const res = await fetch(url);
+      const data = await res.json();
+      setProjects(data);
+    };
+    fetchProjects();
   }, []);
   return (
     <section className="text-3xl px-32 flex flex-col items-center pt-[5vh] scroll-smooth">
       <h1 className="text-center text-4xl py-8">Projects</h1>
       <div className="grid grid-cols-3 gap-4 items-center justify-center">
-        <ProjectModel id={0} name={"das"} type={"dcdsc"} image={""} small />
-        <ProjectModel
-          id={0}
-          name={"cdscds"}
-          type={"cdscdscds"}
-          image={""}
-          small
-        />
-        <ProjectModel
-          id={0}
-          name={"cdscdscds"}
-          type={"cdscdscdscdscd"}
-          image={""}
-          small
-        />
-        <ProjectModel id={0} name={"cds"} type={"cds"} image={""} small />
-        <ProjectModel
-          id={0}
-          name={"cdscdscds"}
-          type={" dsc acas dwf ds sdff sd "}
-          image={""}
-          small
-        />
-        <ProjectModel
-          id={0}
-          name={"asdsa"}
-          type={"asdas dsad a"}
-          image={""}
-          small
-        />
+        {projects.map((project) => (
+          <ProjectModel
+            key={project.id}
+            id={project.id}
+            name={project.title}
+            type={project.shortDescription}
+            image={project.images[0]}
+            small
+          />
+        ))}
       </div>
     </section>
   );

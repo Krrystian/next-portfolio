@@ -29,7 +29,7 @@ const ProjectModel: React.FC<ProjectModelProps> = ({
         className={`rounded-md ${small && "h-[184px] w-[314px]"} object-cover`}
       />
       <div className="grid grid-cols-4 h-full">
-        <div className=" col-span-3">
+        <div className={small ? "col-span-2" : "col-span-3"}>
           <h2
             className={` font-bold ${small ? "text-xl p-1" : "text-3xl p-4"}`}
           >
@@ -37,13 +37,15 @@ const ProjectModel: React.FC<ProjectModelProps> = ({
           </h2>
           <p
             className={`text-black/60 h-full ${
-              small ? "px-1 text-lg" : "px-4"
+              small ? "px-1 text-base" : "px-4"
             }`}
           >
             {type}
           </p>
         </div>
-        <div className="flex justify-center items-center">
+        <div
+          className={`flex justify-end items-center  ${small && "col-span-2 "}`}
+        >
           <p
             className={`border-2 border-black rounded-md  hover:bg-black hover:text-white duration-300 ${
               small ? "text-sm px-1" : "p-2"
