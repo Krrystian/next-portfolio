@@ -1,40 +1,59 @@
 import React from "react";
+import Link from "next/link";
 
 interface ProjectModelProps {
   id: number;
   name: string;
-  description: string;
+  type: string;
   image: string;
+  small?: boolean;
 }
 const ProjectModel: React.FC<ProjectModelProps> = ({
   id,
   name,
-  description,
   image,
+  type,
+  small,
 }) => {
   return (
-    <div className="h-full flex flex-col justify-center items-center cursor-pointer">
-      <div className="group relative flex justify-center items-center">
-        <div className="overflow-hidden">
-          <img
-            src={
-              "https://mateuszjablonski.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fsu7lwncim2tu%2F5jBExBZ0229SivTV2gW7RH%2Fc59eee388b2938f9d2549fe2763ad84d%2FKopia_Feature_image_-_articles.png&w=3840&q=75"
-            }
-            alt={name}
-            className="h-[700px] object-cover transition-all duration-700 group-hover:scale-125"
-          />
-        </div>
-        <div className="absolute text-xl flex flex-col gap-4 text-white w-[70%] h-[70%]">
-          <h3 className="uppercase bg-black text-center text-2xl">"{name}"</h3>
-          <p className="bg-black text-xl px-4 py-2 h-full opacity-80">
-            {description}
+    <Link
+      href={`/projects/${id}`}
+      key={id}
+      className={`flex flex-col border p-4 rounded-md shadow-md  duration-300 cursor-pointer overflow-hidden ${
+        small ? "h-[269px] w-[330px] hover:shadow-xl" : "hover:shadow-2xl"
+      }`}
+    >
+      <img
+        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=3160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt={name}
+        className={`rounded-md ${small && "h-[184px] w-[314px]"} object-cover`}
+      />
+      <div className="grid grid-cols-4 h-full">
+        <div className=" col-span-3">
+          <h2
+            className={` font-bold ${small ? "text-xl p-1" : "text-3xl p-4"}`}
+          >
+            {name}
+          </h2>
+          <p
+            className={`text-black/60 h-full ${
+              small ? "px-1 text-lg" : "px-4"
+            }`}
+          >
+            {type}
           </p>
         </div>
-        {/* <div className="absolute text-xl w-full h-0 bottom-0 left-0 opacity-0 group-hover:opacity-60 group-hover:h-full duration-300 transition-all bg-green-800">
-          <p className="text-white p-4">{description}</p>
-        </div> */}
+        <div className="flex justify-center items-center">
+          <p
+            className={`border-2 border-black rounded-md  hover:bg-black hover:text-white duration-300 ${
+              small ? "text-sm px-1" : "p-2"
+            }`}
+          >
+            Case Study
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

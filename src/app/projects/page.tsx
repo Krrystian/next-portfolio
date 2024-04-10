@@ -3,6 +3,7 @@ import React from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
+import ProjectModel from "../components/ProjectModel";
 const Page = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -17,15 +18,39 @@ const Page = () => {
     });
   }, []);
   return (
-    <section className="snap-mandatory snap-y text-3xl flex w-screen min-h-screen justify-center items-center flex-col scroll-smooth">
-      <div className="h-screen flex items-center w-full justify-center">
-        <p id="i1">Item 1</p>
-      </div>
-      <div className="h-screen flex items-center w-full justify-center">
-        <p id="i2">Item2</p>
-      </div>
-      <div className="h-screen flex items-center w-full justify-center">
-        <p id="i3">Item 3</p>
+    <section className="text-3xl px-32 flex flex-col items-center pt-[5vh] scroll-smooth">
+      <h1 className="text-center text-4xl py-8">Projects</h1>
+      <div className="grid grid-cols-3 gap-4 items-center justify-center">
+        <ProjectModel id={0} name={"das"} type={"dcdsc"} image={""} small />
+        <ProjectModel
+          id={0}
+          name={"cdscds"}
+          type={"cdscdscds"}
+          image={""}
+          small
+        />
+        <ProjectModel
+          id={0}
+          name={"cdscdscds"}
+          type={"cdscdscdscdscd"}
+          image={""}
+          small
+        />
+        <ProjectModel id={0} name={"cds"} type={"cds"} image={""} small />
+        <ProjectModel
+          id={0}
+          name={"cdscdscds"}
+          type={" dsc acas dwf ds sdff sd "}
+          image={""}
+          small
+        />
+        <ProjectModel
+          id={0}
+          name={"asdsa"}
+          type={"asdas dsad a"}
+          image={""}
+          small
+        />
       </div>
     </section>
   );

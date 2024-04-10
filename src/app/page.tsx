@@ -130,10 +130,15 @@ export default function Home() {
         <h2 className="absolute top-[5vh] tracking-widest col-span-3 text-4xl flex items-center justify-center w-full font-extrabold">
           PROJECTS
         </h2>
-        <div className="grid grid-cols-3">
-          <ProjectModel id={1} description="hello" name="test" image="a" />
-          <ProjectModel id={1} description="hello" name="test" image="a" />
-          <ProjectModel id={1} description="hello" name="test" image="a" />
+        <div className="grid grid-cols-3 gap-16 px-16">
+          <ProjectModel id={1} type="1" name="test" image="a" />
+          <ProjectModel id={1} type="lorem5" name="test" image="a" />
+          <ProjectModel
+            id={1}
+            type=" fdsafs sdfdsgdfsg dfs gdg dfg s "
+            name="test"
+            image="a"
+          />
         </div>
         <div className="absolute bottom-8 text-xl italic" id="project_more">
           and many, many &nbsp;
@@ -165,7 +170,7 @@ export default function Home() {
           <h1 className="text-2xl mb-2">
             <span className="text-green-500">EXP</span>ERIENCE
           </h1>
-          <div id="about_me_experience_body">
+          <div id="about_me_experience_body" className="font-normal">
             {aboutMe
               .filter((about) => about.section === "experience")
               .map((about) => (
@@ -319,7 +324,7 @@ export default function Home() {
             <span className="text-green-500">HO</span>BBIES &{" "}
             <span className="text-green-500">INT</span>ERESTS
           </h2>
-          <div id="about_me_hobbies_body">
+          <div id="about_me_hobbies_body" className="font-normal">
             {aboutMe
               .filter((about) => about.section === "hobbies")
               .map((about) => (
@@ -337,6 +342,8 @@ export default function Home() {
           </h2>
           <div id="about_me_links_body" className="flex gap-8 justify-center">
             <a
+              target="_blank"
+              rel="noreferrer"
               href={
                 aboutMe
                   .filter((about) => about.section === "linkedin")
@@ -353,6 +360,8 @@ export default function Home() {
               />
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href={
                 aboutMe
                   .filter((about) => about.section === "github")
@@ -369,6 +378,8 @@ export default function Home() {
               />
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href={
                 `mailto:` +
                 aboutMe
@@ -451,7 +462,17 @@ export default function Home() {
         <footer className="absolute bottom-0 w-full bg-black text-white px-2 py-1 z-20 flex justify-between">
           <p>
             Designed by{" "}
-            <a href="" className="underline">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={
+                aboutMe
+                  .filter((about) => about.section === "github")
+                  .map((about) => about.description)
+                  .flat()[0]
+              }
+              className="underline"
+            >
               Krystian Cichorz.
             </a>
           </p>

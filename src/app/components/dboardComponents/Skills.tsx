@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleAddSkillModal } from "../../store/dboardSlice";
 import { FaRegTrashAlt } from "react-icons/fa";
+
 type Skill = {
   id: number;
   icon: string;
