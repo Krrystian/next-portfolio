@@ -8,9 +8,10 @@ export async function GET() {
             favorite: true
             },
             select: {
-            title: true,
             id: true,
-            description: true
+            title: true,
+            shortDescription: true,
+            images: true,
             }
         });
         return NextResponse.json(projects, {status: 200});

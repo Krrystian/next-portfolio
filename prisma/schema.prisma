@@ -16,17 +16,18 @@ model User {
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  stackIds    String[] @db.ObjectId
-  stack       Skill[]  @relation(fields: [stackIds], references: [id])
-  github      String
-  demo        String
-  favorite    Boolean  @default(false)
-  images      String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String
+  shortDescription String   @default("")
+  stackIds         String[] @db.ObjectId
+  stack            Skill[]  @relation(fields: [stackIds], references: [id])
+  github           String
+  demo             String
+  favorite         Boolean  @default(false)
+  images           String[] @default([])
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Category {

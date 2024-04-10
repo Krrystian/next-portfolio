@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 interface ProjectModelProps {
-  id: number;
+  id: string;
   name: string;
   type: string;
   image: string;
@@ -17,14 +17,14 @@ const ProjectModel: React.FC<ProjectModelProps> = ({
 }) => {
   return (
     <Link
-      href={`/projects/${id}`}
+      href={`/project/${id}`}
       key={id}
       className={`flex flex-col border p-4 rounded-md shadow-md  duration-300 cursor-pointer overflow-hidden ${
         small ? "h-[269px] w-[330px] hover:shadow-xl" : "hover:shadow-2xl"
       }`}
     >
       <img
-        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=3160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src={image}
         alt={name}
         className={`rounded-md ${small && "h-[184px] w-[314px]"} object-cover`}
       />

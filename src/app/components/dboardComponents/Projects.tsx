@@ -44,7 +44,7 @@ const Projects = () => {
               <td className="border-r-2">{project.title}</td>
               <td className="border-r-2">
                 {project.description.length > 50
-                  ? `${project.description.slice(1, 50)}...`
+                  ? `${project.description.slice(0, 50)}...`
                   : project.description}
               </td>
               <td className="flex gap-4 justify-center">

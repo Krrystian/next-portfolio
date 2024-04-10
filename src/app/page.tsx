@@ -19,23 +19,35 @@ type AboutMe = {
   section: string;
   description: string;
 };
+type Project = {
+  id: string;
+  title: string;
+  shortDescription: string;
+  images: string[];
+};
 
 export default function Home() {
   let submitButton = gsap.timeline({ paused: true, once: true });
   const [skills, setSkills] = useState<Skill[]>([]);
   const [aboutMe, setAboutMe] = useState<AboutMe[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
 
-  const skillList = () => {
-    fetch("/api/skill/getSkills").then(async (res) => {
+  const skillList = async () => {
+    await fetch("/api/skill/getSkills").then(async (res) => {
       const data = await res.json();
       setSkills(data);
     });
   };
-  const aboutMeList = () => {
-    fetch("/api/aboutme/getAbout").then(async (res) => {
+  const aboutMeList = async () => {
+    await fetch("/api/aboutme/getAbout").then(async (res) => {
       const data = await res.json();
-      console.log(data);
       setAboutMe(data);
+    });
+  };
+  const projectFavList = async () => {
+    await fetch("/api/project/getFavourite").then(async (res) => {
+      const data = await res.json();
+      setProjects(data);
     });
   };
 
@@ -66,6 +78,7 @@ export default function Home() {
       });
     skillList();
     aboutMeList();
+    projectFavList();
   }, []);
 
   const animations = animationHook();
@@ -131,14 +144,15 @@ export default function Home() {
           PROJECTS
         </h2>
         <div className="grid grid-cols-3 gap-16 px-16">
-          <ProjectModel id={1} type="1" name="test" image="a" />
-          <ProjectModel id={1} type="lorem5" name="test" image="a" />
-          <ProjectModel
-            id={1}
-            type=" fdsafs sdfdsgdfsg dfs gdg dfg s "
-            name="test"
-            image="a"
-          />
+          {projects.map((project) => (
+            <ProjectModel
+              key={project.id}
+              name={project.title}
+              type={project.shortDescription}
+              image={project.images[0]}
+              id={project.id}
+            />
+          ))}
         </div>
         <div className="absolute bottom-8 text-xl italic" id="project_more">
           and many, many &nbsp;
