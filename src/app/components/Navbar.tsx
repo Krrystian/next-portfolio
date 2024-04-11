@@ -1,14 +1,37 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import ScrollTo from "./ScrollTo";
+import { HiOutlineMenu } from "react-icons/hi";
+import { IoCloseSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMenu } from "../store/dboardSlice";
 
 const Navbar = () => {
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const isMenu = useSelector((state: any) => state.dboardSlice.showMenu);
+  const dispatch = useDispatch();
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+  React.useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const handleClick = () => {
+    dispatch(toggleMenu());
+  };
   return (
     <div className="fixed h-[5vh] z-50 w-full flex justify-between bg-white uppercase px-4">
       <div className="flex items-center">
-        <ScrollTo target="landing_page" text="Krystian Cichorz" />
+        <ScrollTo
+          target="landing_page"
+          text={width > 768 ? `Krystian Cichorz` : `KC`}
+        />
       </div>
-      <div className="flex items-center gap-4">
+      <div className="hidden md:flex items-center gap-4">
         <ScrollTo target="about_me" text="About me" />
         <Link
           href="/projects"
@@ -18,6 +41,18 @@ const Navbar = () => {
           Projects
         </Link>
         <ScrollTo target="contact" text="Contact" />
+      </div>
+      <div className="md:hidden flex items-center">
+        <HiOutlineMenu
+          size={25}
+          className={`cursor-pointer ${isMenu ? "hidden" : "flex"}`}
+          onClick={handleClick}
+        />
+        <IoCloseSharp
+          size={25}
+          className={`cursor-pointer ${isMenu ? "flex" : "hidden"}`}
+          onClick={handleClick}
+        />
       </div>
     </div>
   );

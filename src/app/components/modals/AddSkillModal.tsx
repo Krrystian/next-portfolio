@@ -1,8 +1,7 @@
 "use client";
 import React, { FormEvent, useEffect, useState } from "react";
 import Model from "./Modal";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleAddSkillModal } from "@/app/store/dboardSlice";
 const AddSkillModal = () => {
   const addSkill = useSelector((state: any) => state.dboardSlice.addSkillModal);
