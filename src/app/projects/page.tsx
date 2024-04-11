@@ -20,9 +20,9 @@ const Page = () => {
     fetchProjects();
   }, []);
   return (
-    <section className="text-3xl px-32 flex flex-col items-center pt-[5vh] scroll-smooth">
+    <section className="text-3xl md:px-32 flex flex-col items-center pt-[5vh] scroll-smooth w-screen">
       <h1 className="text-center text-4xl py-8">Projects</h1>
-      <div className="grid grid-cols-3 gap-4 items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 pb-4 md:pb-0 gap-4 items-center justify-center overflow-hidden">
         {projects.map((project) => (
           <ProjectModel
             key={project.id}

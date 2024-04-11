@@ -51,12 +51,12 @@ const page = () => {
   }
 
   return (
-    <section className="w-screen h-screen pt-[5vh] flex flex-col justify-center px-16">
-      <div className="w-full grid grid-cols-8">
-        <h1 className="col-span-8 text-4xl py-4 font-bold tracking-wider">
+    <section className="w-screen md:h-screen pt-[5vh] flex flex-col justify-center px-4 md:px-16">
+      <div className="w-full grid grid-cols-1 md:grid-cols-8 py-4 md:py-0 gap-8 md:gap-0">
+        <h1 className="md:col-span-8 text-4xl md:py-4 font-bold tracking-wider">
           {project.title}
         </h1>
-        <div className="col-span-5 relative group flex justify-center">
+        <div className="md:col-span-5 relative group flex justify-center">
           <Image
             src={
               project.images[currentIndex] ||
@@ -111,9 +111,11 @@ const page = () => {
             />
           </div>
         </div>
-        <div className="col-span-3 px-8 flex flex-col justify-between cursor-default">
-          <p className="text-xl text-justify">{project.description}</p>
-          <div className="flex flex-col text-xl text-green-500 gap-4 font-bold">
+        <div className="md:col-span-3 md:px-8 flex flex-col justify-between cursor-default">
+          <p className="text-base md:text-xl text-justify">
+            {project.description}
+          </p>
+          <div className="flex flex-col md:text-xl text-green-500 gap-2 md:gap-4 font-bold">
             <Link href={project.demo} className="flex max-w-[100px]">
               Demo {"> >"}
             </Link>
