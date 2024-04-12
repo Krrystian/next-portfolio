@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-const animationHook = () => {
+const useAnimationHook = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const screenWidth = window.innerWidth;
@@ -413,4 +413,4 @@ const animationHook = () => {
   }, []);
 };
 
-export default animationHook;
+export default useAnimationHook;

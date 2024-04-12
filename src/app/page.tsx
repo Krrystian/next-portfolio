@@ -1,7 +1,7 @@
 "use client";
 import { LuMoveDown } from "react-icons/lu";
 import ProjectModel from "./components/ProjectModel";
-import animationHook from "./hooks/animationHook";
+import useAnimationHook from "./hooks/useAnimationHook";
 import Link from "next/link";
 import Input from "./components/Input";
 import { useEffect, useState } from "react";
@@ -56,7 +56,7 @@ export default function Home() {
     projectFavList();
   }, []);
 
-  const animations = animationHook();
+  const animations = useAnimationHook();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
