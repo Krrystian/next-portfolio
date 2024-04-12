@@ -13,8 +13,8 @@ const MenuList = () => {
   };
   return (
     <div
-      className={`z-100 h-[95vh] top-[5vh] z-50 flex flex-col justify-center bg-white fixed right-0 w-[50%] duration-500 transition-all shadow-2xl translate-x-[100%] ${
-        isMenu ? "translate-x-0" : ""
+      className={`z-100 h-[95vh] top-[5vh] z-50 flex flex-col justify-center bg-white fixed right-0 w-[50%] duration-500 transition-all shadow-2xl ${
+        isMenu ? "translate-x-0" : "translate-x-[100%]"
       }`}
     >
       <div className="flex flex-col gap-8 items-center justify-center">
@@ -22,7 +22,7 @@ const MenuList = () => {
         <Link
           href="/projects"
           prefetch={true}
-          className="uppercase text-3xl tracking-widest cursor-pointer"
+          className="text-3xl uppercase tracking-widest cursor-pointer relative py-1 after:absolute after:bottom-0 after:left-0 after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition-all after:origin-middle after:h-[4px] after:duration-500 after:bg-green-500"
           onClick={handleClick}
         >
           Projects

@@ -170,7 +170,7 @@ export default function Home() {
           </h1>
           <div
             id="about_me_experience_body"
-            className="font-normal text-justify md:p-2"
+            className="font-normal text-justify"
           >
             {aboutMe
               .filter((about) => about.section === "experience")
@@ -321,7 +321,7 @@ export default function Home() {
           className="md:absolute md:w-[40%] text-center tracking-widest font-bold"
           id="about_me_hobbies"
         >
-          <h2 className="text-2xl md:mb-2 py-6">
+          <h2 className="text-2xl md:mb-2 py-6 md:py-0">
             <span className="text-green-500">HO</span>BBIES &{" "}
             <span className="text-green-500">INT</span>ERESTS
           </h2>
