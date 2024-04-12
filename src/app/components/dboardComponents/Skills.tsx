@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleAddSkillModal } from "../../store/dboardSlice";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Image from "next/image";
 
 type Skill = {
   id: number;
@@ -61,7 +62,12 @@ const Skills = () => {
               className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
             >
               <td className="border-r-2 flex justify-center items-center">
-                <img width={30} height={30} src={skill.icon} />
+                <Image
+                  width={30}
+                  height={30}
+                  src={skill.icon}
+                  alt={skill.description}
+                />
               </td>
               <td className="border-r-2">{skill.description}</td>
               <td className="border-r-2">{skill.Category?.name}</td>

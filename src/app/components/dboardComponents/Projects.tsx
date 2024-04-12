@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 type Project = {
   id: number;
   title: string;
-  description: string;
+  shortDescription: string;
 };
 const Projects = () => {
   const [projects, setProjects] = React.useState<Project[]>([]);
@@ -16,6 +16,7 @@ const Projects = () => {
   useEffect(() => {
     fetch("/api/project/getProjects").then(async (res) => {
       const data = await res.json();
+      console.log(data);
       setProjects(data);
     });
   }, []);
@@ -43,9 +44,9 @@ const Projects = () => {
             >
               <td className="border-r-2">{project.title}</td>
               <td className="border-r-2">
-                {project.description.length > 50
-                  ? `${project.description.slice(0, 50)}...`
-                  : project.description}
+                {project.shortDescription.length > 50
+                  ? `${project.shortDescription.slice(0, 50)}...`
+                  : project.shortDescription}
               </td>
               <td className="flex gap-4 justify-center">
                 <button className="">Show</button>

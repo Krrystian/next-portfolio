@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProjectModelProps {
   id: string;
@@ -23,10 +24,12 @@ const ProjectModel: React.FC<ProjectModelProps> = ({
         small ? "h-[269px] w-[330px] hover:shadow-xl" : "hover:shadow-2xl"
       }`}
     >
-      <img
+      <Image
+        width={1000}
+        height={1000}
         src={image}
         alt={name}
-        className={`rounded-md ${small && "h-[184px] w-[314px]"} object-cover`}
+        className={`rounded-md object-cover`}
       />
       <div className="grid grid-cols-4 h-full">
         <div className={small ? "col-span-2" : "col-span-3"}>

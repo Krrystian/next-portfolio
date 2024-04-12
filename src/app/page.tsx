@@ -109,7 +109,7 @@ export default function Home() {
             className="lg:text-7xl md:text-4xl text-3xl font-extrabold opacity-0"
             id="l3"
           >
-            I'm a fullstack developer.
+            I am a fullstack developer.
           </p>
         </div>
         <div
@@ -447,7 +447,7 @@ export default function Home() {
                 id="contact_button"
                 disabled={submit ? true : false}
                 className={`bg-green-500 text-white md:w-1/3 w-full self-center absolute bottom-0 md:translate-y-16 duration-1000 transition-all ${
-                  submit ? "h-full translate-y-0" : "h-10"
+                  submit ? "h-full md:translate-y-0" : "h-10"
                 }`}
               >
                 {submit ? "Thank you for contacting me!" : "Send"}
