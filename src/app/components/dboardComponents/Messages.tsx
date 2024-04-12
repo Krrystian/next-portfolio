@@ -55,25 +55,26 @@ const Messages = () => {
           </tr>
         </thead>
         <tbody>
-          {contact.map((contact) => (
-            <tr
-              key={contact.id}
-              className={`*:text-center *:px-2 *:border-black/20 border-2 border-black/20 ${
-                contact.wasSeen ? "odd:bg-gray-200" : "bg-red-500/60"
-              }`}
-            >
-              <td className="border-r-2">{contact.name}</td>
-              <td className="border-r-2">{contact.email}</td>
-              <td className="border-r-2">
-                {contact.message.length > 50
-                  ? `${contact.message.slice(0, 50)}...`
-                  : contact.message}
-              </td>
-              <td className="w-full">
-                <button onClick={() => handleClick(contact)}>Show</button>
-              </td>
-            </tr>
-          ))}
+          {contact.length > 0 &&
+            contact.map((contact) => (
+              <tr
+                key={contact.id}
+                className={`*:text-center *:px-2 *:border-black/20 border-2 border-black/20 ${
+                  contact.wasSeen ? "odd:bg-gray-200" : "bg-red-500/60"
+                }`}
+              >
+                <td className="border-r-2">{contact.name}</td>
+                <td className="border-r-2">{contact.email}</td>
+                <td className="border-r-2">
+                  {contact.message.length > 50
+                    ? `${contact.message.slice(0, 50)}...`
+                    : contact.message}
+                </td>
+                <td className="w-full">
+                  <button onClick={() => handleClick(contact)}>Show</button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

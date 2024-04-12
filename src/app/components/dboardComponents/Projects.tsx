@@ -37,23 +37,24 @@ const Projects = () => {
           </tr>
         </thead>
         <tbody>
-          {projects.map((project) => (
-            <tr
-              key={project.id}
-              className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
-            >
-              <td className="border-r-2">{project.title}</td>
-              <td className="border-r-2">
-                {project.shortDescription.length > 50
-                  ? `${project.shortDescription.slice(0, 50)}...`
-                  : project.shortDescription}
-              </td>
-              <td className="flex gap-4 justify-center">
-                <button className="">Show</button>
-                <button className="">Edit</button>
-              </td>
-            </tr>
-          ))}
+          {projects.length > 0 &&
+            projects.map((project) => (
+              <tr
+                key={project.id}
+                className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
+              >
+                <td className="border-r-2">{project.title}</td>
+                <td className="border-r-2">
+                  {project.shortDescription.length > 50
+                    ? `${project.shortDescription.slice(0, 50)}...`
+                    : project.shortDescription}
+                </td>
+                <td className="flex gap-4 justify-center">
+                  <button className="">Show</button>
+                  <button className="">Edit</button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

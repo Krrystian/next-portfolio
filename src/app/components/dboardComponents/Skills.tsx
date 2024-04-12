@@ -56,30 +56,31 @@ const Skills = () => {
           </tr>
         </thead>
         <tbody>
-          {skills.map((skill) => (
-            <tr
-              key={skill.id}
-              className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
-            >
-              <td className="border-r-2 flex justify-center items-center">
-                <Image
-                  width={30}
-                  height={30}
-                  src={skill.icon}
-                  alt={skill.description}
-                />
-              </td>
-              <td className="border-r-2">{skill.description}</td>
-              <td className="border-r-2">{skill.Category?.name}</td>
-              <td className="w-full">
-                <FaRegTrashAlt
-                  size={20}
-                  className="cursor-pointer text-center w-full"
-                  onClick={() => handleDelete(skill.id)}
-                />
-              </td>
-            </tr>
-          ))}
+          {skills.length > 0 &&
+            skills.map((skill) => (
+              <tr
+                key={skill.id}
+                className="*:text-center *:px-2 *:border-black/20 border-2 border-black/20 odd:bg-gray-200"
+              >
+                <td className="border-r-2 flex justify-center items-center">
+                  <Image
+                    width={30}
+                    height={30}
+                    src={skill.icon}
+                    alt={skill.description}
+                  />
+                </td>
+                <td className="border-r-2">{skill.description}</td>
+                <td className="border-r-2">{skill.Category?.name}</td>
+                <td className="w-full">
+                  <FaRegTrashAlt
+                    size={20}
+                    className="cursor-pointer text-center w-full"
+                    onClick={() => handleDelete(skill.id)}
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
