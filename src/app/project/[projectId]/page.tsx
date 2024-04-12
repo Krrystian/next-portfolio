@@ -18,7 +18,7 @@ type Project = {
   demo: string;
 };
 
-const page = () => {
+const Page = () => {
   const { projectId } = useParams();
   const [project, setProject] = useState<Project>({
     title: "",
