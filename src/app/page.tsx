@@ -65,6 +65,7 @@ export default function Home() {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
+    setSubmit(true);
     const formData = new FormData(e.currentTarget);
     const data = {
       email: formData.get("Email"),
@@ -85,7 +86,6 @@ export default function Home() {
           setLoading(false);
           return;
         }
-        setSubmit(true);
         setLoading(false);
         sendMail({
           to: "krystiancichorz708@gmail.com",
