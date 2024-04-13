@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     const isValidEmail = regex.test(email);
     if (!isValidEmail) {
-      return NextResponse.json({ message: "Invalid Email", status: 400 });
+      return NextResponse.json({ message: "Invalid Email" }, { status: 400 });
     }
     const contact = await prisma.contact.create({
       data: {
@@ -17,6 +17,6 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(contact, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: "Bad Request", status: 400 });
+    return NextResponse.json({ message: "Bad Request"},{status: 400 });
   }
 }

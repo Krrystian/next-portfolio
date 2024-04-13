@@ -6,6 +6,8 @@ import Link from "next/link";
 import Input from "./components/Input";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { sendMail } from "@/utils/mail";
+
 type Skill = {
   id: number;
   icon: string;
@@ -62,7 +64,6 @@ export default function Home() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
-    setSubmit(true);
     setLoading(true);
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -77,9 +78,27 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }).then(() => setLoading(false));
+      }).then(async (data) => {
+        const res = await data.json();
+        if (data.status === 400) {
+          console.error(res.error);
+          setLoading(false);
+          return;
+        }
+        setSubmit(true);
+        setLoading(false);
+        sendMail({
+          to: "krystiancichorz708@gmail.com",
+          name: res.name as string,
+          subject: "PORTFOLIO WEBSITE - NEW MESSAGE " + res.email,
+          body: `<h1>EMAIL: ${res.email}</h1>
+                <p>NAME: ${res.name}</p>
+                <p>${res.message}</p>`,
+        });
+      });
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 

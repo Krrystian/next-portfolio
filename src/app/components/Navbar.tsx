@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../store/dboardSlice";
 
 const Navbar = () => {
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [width, setWidth] = React.useState(0);
   const isMenu = useSelector((state: any) => state.dboardSlice.showMenu);
   const dispatch = useDispatch();
   const handleResize = () => {
