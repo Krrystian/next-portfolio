@@ -24,7 +24,7 @@ const Navbar = () => {
     dispatch(toggleMenu());
   };
   return (
-    <div className="fixed h-[5vh] z-50 w-full flex justify-between bg-white uppercase px-4">
+    <nav className="fixed h-[5vh] z-50 w-full flex justify-between bg-white/50 uppercase px-4">
       <div className="flex items-center">
         <ScrollTo
           target="landing_page"
@@ -54,7 +54,7 @@ const Navbar = () => {
           onClick={handleClick}
         />
       </div>
-    </div>
+    </nav>
   );
 };
 

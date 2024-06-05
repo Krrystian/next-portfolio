@@ -2,7 +2,6 @@ import prisma from "@/app/db";
 import { NextResponse } from "next/server";
 export async function GET(request: Request) {
     try {
-        
         const skills = await prisma.skill.findMany({
             select: {
                 id: true,
@@ -15,8 +14,10 @@ export async function GET(request: Request) {
                 }
             }
         });
+        console.log(skills);
         return NextResponse.json(skills, {status: 200});
     } catch (error) {
+        console.error(error);
         return NextResponse.json({message: "Bad Request", status: 400});
     }
 }

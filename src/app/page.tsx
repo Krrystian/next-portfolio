@@ -7,6 +7,7 @@ import Input from "./components/Input";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { sendMail } from "@/utils/mail";
+import ProjectItem from "./components/ProjectItem";
 
 type Skill = {
   id: number;
@@ -104,11 +105,11 @@ export default function Home() {
 
   return (
     <section
-      className="md:snap-y md:snap-mandatory overflow-x-hidden overflow-y-scroll h-[100vh] w-screen no-scrollbar md:px-8 px-4 select-none cursor-default"
+      className="overflow-x-hidden overflow-y-scroll h-screen w-screen no-scrollbar select-none cursor-default text-[#191919] relative"
       id="hero"
     >
       <div
-        className="relative h-screen min-w-screen flex justify-center items-center snap-center snap-always"
+        className="h-screen min-w-screen flex justify-center items-center sticky top-0"
         id="landing_page"
       >
         <div className="flex flex-col gap-4">
@@ -131,47 +132,37 @@ export default function Home() {
             I am a fullstack developer.
           </p>
         </div>
-        <div
-          className="absolute bottom-8 flex items-center flex-col opacity-0"
-          id="swipe_down"
-        >
-          <p className="text-base text-green-900">Scroll down to continue</p>
-          <LuMoveDown className="text-6xl text-green-500" />
-        </div>
       </div>
-      <div className="relative md:h-screen flex flex-col md:flex-row justify-center items-center snap-center snap-always md:py-[5vh]">
-        <h2 className="md:absolute top-[5vh] py-5 md:py-0 tracking-widest col-span-3 text-4xl flex items-center justify-center w-full font-extrabold">
-          PROJECTS
-        </h2>
-        <div className="grid md:grid-cols-3 grid-cols-1 md:gap-16 gap-4 md:px-16 p-2">
-          {projects.map((project) => (
-            <ProjectModel
+      {/* PROJECTS */}
+      <div className="relative bg-[#191919] md:min-h-screen w-screen flex flex-col justify-center items-center">
+        <svg
+          className="absolute top-0 translate-y-[-60%] w-full"
+          viewBox="0 0 1440 152"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 52H345H633.064C668.205 52 700.584 32.9482 717.65 2.2293V2.2293C718.674 0.385941 721.326 0.385942 722.35 2.2293V2.2293C739.416 32.9482 771.795 52 806.936 52H1440V152H0V52Z"
+            fill="#191919"
+          />
+        </svg>
+        <div className="flex flex-col gap-16">
+          {projects.map((project, index) => (
+            <ProjectItem
               key={project.id}
-              name={project.title}
-              type={project.shortDescription}
+              title={project.title}
               image={project.images[0]}
-              id={project.id}
+              description="lorem ipsum"
+              github="#"
+              demo="#"
+              reverse={index % 2 !== 0}
             />
           ))}
-        </div>
-        <div
-          className="md:absolute md:bottom-8 text-xl italic"
-          id="project_more"
-        >
-          and many, many &nbsp;
-          <Link
-            href="/projects"
-            prefetch
-            className="text-green-500 cursor-pointer"
-          >
-            more
-          </Link>
-          ...
         </div>
       </div>
 
       <div
-        className="relative md:h-screen flex flex-col justify-center items-center md:snap-center md:snap-always md:py-[5vh]"
+        className="relative md:h-screen flex flex-col justify-center items-center md:py-[5vh]"
         id="about_me"
       >
         <h2
@@ -419,10 +410,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div
-        className="relative md:h-screen min-w-screen flex md:flex-row flex-col justify-center items-center snap-center snap-always"
-        id="contact"
-      >
+      <div className="relative md:h-screen min-w-screen flex md:flex-row flex-col justify-center items-center">
         <h2
           className="md:absolute tracking-widest hidden md:flex col-span-3 text-4xl items-center justify-center w-full font-extrabold"
           id="contact_title_middle"

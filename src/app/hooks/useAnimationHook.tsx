@@ -32,35 +32,7 @@ const useAnimationHook = () => {
         ease: "power4.out",
       }
     );
-    gsap.fromTo(
-      "#swipe_down",
-      {
-        opacity: 0,
-      },
-      {
-        delay: 4,
-        opacity: 1,
-        y: 20,
-        repeat: -1,
-        yoyo: true,
-        duration: 1,
-      }
-    );
-    gsap.fromTo(
-      "#project_more",
-      {
-        opacity: 0,
-      },
-      {
-        duration: 1,
-        opacity: 1,
-        delay: 1.5,
-        scrollTrigger: {
-          scroller: "#hero",
-          trigger: "#project_more",
-        },
-      }
-    );
+
     if (screenWidth > 768) {
       //About me
       gsap.fromTo(

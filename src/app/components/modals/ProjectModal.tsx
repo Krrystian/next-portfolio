@@ -44,6 +44,7 @@ const ProjectModal = () => {
     await fetch("/api/skill/getSkills").then((res) => {
       res.json().then((data) => {
         setSkills(data);
+        console.log(data);
       });
     });
   };
@@ -97,17 +98,18 @@ const ProjectModal = () => {
             multiple
             className="w-full border-2 border-black outline-none"
           >
-            {skills
-              .filter((skill: any) => skill.Category.name === "FRONTEND")
-              .map((skill: any) => (
-                <option
-                  key={skill.id}
-                  className="border-b-2 text-center w-full"
-                  value={skill.id}
-                >
-                  {skill.description}
-                </option>
-              ))}
+            {skills &&
+              skills
+                .filter((skill: any) => skill.Category.name === "FRONTEND")
+                .map((skill: any) => (
+                  <option
+                    key={skill.id}
+                    className="border-b-2 text-center w-full"
+                    value={skill.id}
+                  >
+                    {skill.description}
+                  </option>
+                ))}
           </select>
         </div>
         <div>
