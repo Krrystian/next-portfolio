@@ -14,7 +14,6 @@ export async function GET(request: Request) {
                 }
             }
         });
-        console.log(skills);
         return NextResponse.json(skills, {status: 200});
     } catch (error) {
         console.error(error);

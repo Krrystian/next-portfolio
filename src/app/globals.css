@@ -3,11 +3,22 @@
 @tailwind utilities;
 
 
-.no-scrollbar::-webkit-scrollbar {
+body.no-scrollbar::-webkit-scrollbar {
     display: none;
 }
 
-.no-scrollbar {
+body.no-scrollbar {
     -ms-overflow-style: none;  
     scrollbar-width: none; 
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    display: none;
 }

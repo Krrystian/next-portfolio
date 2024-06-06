@@ -1,13 +1,18 @@
 "use client";
-import { LuMoveDown } from "react-icons/lu";
-import ProjectModel from "./components/ProjectModel";
 import useAnimationHook from "./hooks/useAnimationHook";
 import Link from "next/link";
 import Input from "./components/Input";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { sendMail } from "@/utils/mail";
 import ProjectItem from "./components/ProjectItem";
+import { motion, scroll, useScroll, useTransform } from "framer-motion";
+import ScrollBar from "./components/ScrollBar";
+import Navbar from "./components/Navbar";
+import AddSkillModal from "./components/modals/AddSkillModal";
+import ShowMessageModal from "./components/modals/ShowMessageModal";
+import ProjectModal from "./components/modals/ProjectModal";
+import MenuList from "./components/MenuList";
 
 type Skill = {
   id: number;
@@ -57,9 +62,20 @@ export default function Home() {
     skillList();
     aboutMeList();
     projectFavList();
+
+    // const about = document.getElementById("about") as Element;
+    // scroll(
+    //   (progress) => {
+    //     setScrollY(progress);
+    //   },
+    //   {
+    //     axis: "y",
+    //     source: about,
+    //   }
+    // );
   }, []);
 
-  const animations = useAnimationHook();
+  useAnimationHook();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,11 +119,21 @@ export default function Home() {
     }
   };
 
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: aboutRef,
+    offset: ["start end", "end end"],
+  });
+
   return (
-    <section
-      className="overflow-x-hidden overflow-y-scroll h-screen w-screen no-scrollbar select-none cursor-default text-[#191919] relative"
-      id="hero"
-    >
+    <main className="relative">
+      <ScrollBar />
+      <Navbar />
+      <AddSkillModal />
+      <ShowMessageModal />
+      <ProjectModal />
+      <MenuList />
+
       <div
         className="h-screen min-w-screen flex justify-center items-center sticky top-0"
         id="landing_page"
@@ -133,7 +159,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-      {/* PROJECTS */}
       <div className="relative bg-[#191919] md:min-h-screen w-screen flex flex-col justify-center items-center">
         <svg
           className="absolute top-0 translate-y-[-60%] w-full"
@@ -146,7 +171,7 @@ export default function Home() {
             fill="#191919"
           />
         </svg>
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-16 z-20">
           {projects.map((project, index) => (
             <ProjectItem
               key={project.id}
@@ -159,19 +184,29 @@ export default function Home() {
             />
           ))}
         </div>
-      </div>
-
-      <div
-        className="relative md:h-screen flex flex-col justify-center items-center md:py-[5vh]"
-        id="about_me"
-      >
-        <h2
-          className="md:absolute py-5 md:py-0 tracking-widest font-extrabold text-4xl flex items-center justify-center w-full"
-          id="about_me_title"
+        <svg
+          viewBox="0 0 1440 152"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute bottom-0 translate-y-[60%] w-full z-10"
         >
-          ABOUT ME
-        </h2>
-        <div
+          <path
+            d="M0 100H345H633.064C668.206 100 700.584 119.052 717.65 149.771C718.674 151.614 721.326 151.614 722.35 149.771C739.416 119.052 771.795 100 806.936 100H1440V0H0V100Z"
+            fill="#191919"
+          />
+        </svg>
+      </div>
+      <div
+        className="relative top-0 h-screen w-screen flex flex-col justify-center items-center bg-white "
+        id="about"
+        ref={aboutRef}
+      >
+        <motion.div
+          className="fixed w-screen bg-black h-4 bottom-0 z-50"
+          style={{ scaleX: scrollYProgress }}
+        ></motion.div>
+
+        {/* <div
           className="md:absolute md:w-[40%] text-center tracking-widest font-bold"
           id="about_me_experience"
         >
@@ -408,9 +443,9 @@ export default function Home() {
               />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="relative md:h-screen min-w-screen flex md:flex-row flex-col justify-center items-center">
+      <div className="relative md:h-screen min-w-screen flex md:flex-row flex-col justify-center items-center bg-white">
         <h2
           className="md:absolute tracking-widest hidden md:flex col-span-3 text-4xl items-center justify-center w-full font-extrabold"
           id="contact_title_middle"
@@ -505,6 +540,6 @@ export default function Home() {
           </p>
         </footer>
       </div>
-    </section>
+    </main>
   );
 }

@@ -54,14 +54,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
       ) : (
         <>
           <div className="relative">
-            <Image
-              src={
-                "https://utfs.io/f/0eafe0e3-8a64-49f6-8435-613907a9b54d-d6pvic.svg"
-              }
-              alt={title}
-              fill
-              className="object-cover"
-            />
+            <Image src={image} alt={title} fill className="object-cover" />
           </div>
           <div className="flex flex-col gap-6 p-6 bg-[#191919]">
             <h3 className="text-7xl text-center">{title}</h3>
