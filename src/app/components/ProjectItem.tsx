@@ -21,7 +21,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 }) => {
   return (
     <div
-      className={`grid grid-cols-2 w-screen h-screen text-white z-10 sticky top-[5vh]`}
+      className={`grid grid-cols-2 w-screen h-[93vh] text-white z-10 sticky top-[7vh]`}
     >
       {reverse ? (
         <>

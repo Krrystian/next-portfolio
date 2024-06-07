@@ -24,7 +24,7 @@ const Navbar = () => {
     dispatch(toggleMenu());
   };
   return (
-    <nav className="fixed h-[5vh] z-50 w-full flex justify-between bg-white/50 uppercase px-4">
+    <nav className="fixed h-[7vh] z-50 w-full flex justify-between bg-white/50 backdrop-blur-sm uppercase px-4">
       <div className="flex items-center">
         <ScrollTo
           target="landing_page"

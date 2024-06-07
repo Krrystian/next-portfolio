@@ -122,7 +122,7 @@ export default function Home() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: aboutRef,
-    offset: ["start end", "end start"],
+    offset: ["start 0.8", "end center"],
   });
 
   return (
@@ -159,7 +159,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="relative bg-[#191919] md:min-h-screen w-screen flex flex-col justify-center items-center">
+      <div className="relative bg-[#191919] min-h-screen  w-screen flex flex-col justify-center items-center pb-[50px]">
         <svg
           className="absolute top-0 translate-y-[-60%] w-full"
           viewBox="0 0 1440 152"
@@ -184,7 +184,8 @@ export default function Home() {
             />
           ))}
         </div>
-        <svg
+
+        {/* <svg
           viewBox="0 0 1440 152"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -194,22 +195,19 @@ export default function Home() {
             d="M0 100H345H633.064C668.206 100 700.584 119.052 717.65 149.771C718.674 151.614 721.326 151.614 722.35 149.771C739.416 119.052 771.795 100 806.936 100H1440V0H0V100Z"
             fill="#191919"
           />
-        </svg>
+        </svg> */}
       </div>
       <div
-        className="relative top-0 h-screen w-screen flex flex-col justify-center items-center bg-white border-8 border-red-500"
+        className="relative py-[192px] w-screen flex flex-col justify-center items-center bg-white gap-48 text-xl"
         ref={aboutRef}
       >
-        {/* <motion.div
-          className="sticky w-screen bg-black h-4 bottom-0 z-50"
-          style={{ scaleX: scrollYProgress }}
-        ></motion.div> */}
-        <svg
+        {/* <svg
           width="312"
           height="1287"
           viewBox="0 0 312 1287"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className="absolute w-full top-0"
         >
           <motion.path
             d="M186.5 1L9.19655 259.962C-2.16367 276.555 -1.13687 298.67 11.7119 314.138L256.38 608.686C267.452 622.015 269.887 640.519 262.64 656.259L95.3284 1019.64C87.5895 1036.45 90.9284 1056.28 103.744 1069.63L311.5 1286"
@@ -217,246 +215,147 @@ export default function Home() {
             strokeWidth="5"
             style={{ pathLength: scrollYProgress }}
           />
+        </svg> */}
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-start"
+        >
+          <motion.path
+            d="M2 0L353 166.667L2 333.333L353 500L2 666.667L353 833.333L2 1000L353 1166.67L2 1333.33L353 1500L2 1666.67L353 1833.33L2 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
+        </svg>
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-start"
+        >
+          <motion.path
+            d="M353 0L2 166.667L353 333.333L2 500L353 666.667L2 833.333L353 1000L2 1166.67L353 1333.33L2 1500L353 1666.67L2 1833.33L353 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
+        </svg>
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-end"
+        >
+          <motion.path
+            d="M2 0L353 166.667L2 333.333L353 500L2 666.667L353 833.333L2 1000L353 1166.67L2 1333.33L353 1500L2 1666.67L353 1833.33L2 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
+        </svg>
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-end"
+        >
+          <motion.path
+            d="M353 0L2 166.667L353 333.333L2 500L353 666.667L2 833.333L353 1000L2 1166.67L353 1333.33L2 1500L353 1666.67L2 1833.33L353 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
         </svg>
 
-        {/* <div
-          className="md:absolute md:w-[40%] text-center tracking-widest font-bold"
-          id="about_me_experience"
-        >
-          <h1 className="text-2xl md:mb-2 pb-5 md:pb-0">
-            <span className="text-green-500">EXP</span>ERIENCE
-          </h1>
-          <div
-            id="about_me_experience_body"
-            className="font-normal text-justify"
-          >
-            {aboutMe
-              .filter((about) => about.section === "experience")
-              .map((about) => (
-                <p key={about.section}>{about.description}</p>
+        <div className="w-[40%] text-[#191919] flex flex-col gap-8">
+          <h2 className="text-9xl font-bold text-center">Experience</h2>
+          {aboutMe
+            .filter((about) => about.section === "experience")
+            .map((about) => (
+              <p key={about.section} className="text-justify">
+                {about.description}
+              </p>
+            ))}
+        </div>
+        <div className="w-[40%] text-[#191919] flex flex-col gap-8">
+          <h2 className="text-9xl font-bold text-center">Hobbies</h2>
+          {aboutMe
+            .filter((about) => about.section === "hobbies")
+            .map((about) => (
+              <p key={about.section} className="text-justify">
+                {about.description}
+              </p>
+            ))}
+        </div>
+        <div className="w-[60%] text-[#191919] flex flex-col self-center items-center">
+          <h2 className="text-9xl font-bold pb-8 text-center">Technologies</h2>
+          <h3 className="text-4xl font-bold text-center pb-4">Frontend</h3>
+          <div className="flex gap-4 ">
+            {skills
+              .filter((skill) => skill.Category.name === "FRONTEND")
+              .map((skill) => (
+                <p className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center">
+                  <Image
+                    src={skill.icon}
+                    alt={""}
+                    width={20}
+                    height={20}
+                  ></Image>
+                  {skill.description}
+                </p>
+              ))}
+          </div>
+          <h3 className="text-4xl font-bold text-center p-4">Backend</h3>
+          <div className="flex gap-4">
+            {skills
+              .filter(
+                (skill) =>
+                  skill.Category.name === "BACKEND" ||
+                  skill.Category.name === "DEVOPS"
+              )
+              .map((skill) => (
+                <p className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center">
+                  <Image
+                    src={skill.icon}
+                    alt={""}
+                    width={20}
+                    height={20}
+                  ></Image>
+                  {skill.description}
+                </p>
+              ))}
+          </div>
+          <h3 className="text-4xl font-bold text-center p-4">Languages</h3>
+          <div className="flex gap-4">
+            {skills
+              .filter((skill) => skill.Category.name === "LANGUAGES")
+              .map((skill) => (
+                <p className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center">
+                  <Image
+                    src={skill.icon}
+                    alt={skill.description}
+                    width={20}
+                    height={20}
+                  ></Image>
+                  {skill.description}
+                </p>
               ))}
           </div>
         </div>
-        <div
-          className="md:absolute md:w-[40%] text-center tracking-widest font-bold"
-          id="about_me_technologies"
-        >
-          <h2 className="text-2xl py-5 md:py-0 md:mb-2">
-            <span className="text-green-500">TECH</span>NOLOGIES
-          </h2>
-          <div
-            className="grid md:grid-cols-6 grid-cols-2 justify-center items-center h-full gap-4 md:gap-8"
-            id="about_me_technologies_body"
-          >
-            <div className="w-full md:col-span-2 h-full border-4 border-green-500">
-              <h4 className="tracking-widest font-extrabold text-xl text-white bg-green-500">
-                FRONTEND
-              </h4>
-              <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {skills
-                  .filter((skill) => skill.Category.name === "FRONTEND")
-                  .map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="group relative flex justify-center"
-                    >
-                      <Image
-                        width="60"
-                        height="60"
-                        src={skill.icon}
-                        alt={skill.description}
-                      />
-                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                        {skill.description}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="w-full md:col-span-2 h-full border-4 border-green-500">
-              <h4 className="tracking-widest font-extrabold text-xl text-white bg-green-500">
-                BACKEND
-              </h4>
-              <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {skills
-                  .filter((skill) => skill.Category.name === "BACKEND")
-                  .map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="group relative flex justify-center"
-                    >
-                      <Image
-                        width="60"
-                        height="60"
-                        src={skill.icon}
-                        alt={skill.description}
-                      />
-                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                        {skill.description}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="w-full md:col-span-2 h-full border-4 border-green-500">
-              <h4 className="tracking-widest font-extrabold text-xl text-white bg-green-500">
-                DEVOPS
-              </h4>
-              <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {skills
-                  .filter((skill) => skill.Category.name === "DEVOPS")
-                  .map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="group relative flex justify-center"
-                    >
-                      <Image
-                        width="60"
-                        height="60"
-                        src={skill.icon}
-                        alt={skill.description}
-                      />
-                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                        {skill.description}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="w-full md:col-span-3 h-full border-4 border-green-500">
-              <h4 className="tracking-widest font-extrabold text-xl text-white bg-green-500">
-                LANGUAGES
-              </h4>
-              <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {skills
-                  .filter((skill) => skill.Category.name === "LANGUAGES")
-                  .map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="group relative flex justify-center"
-                    >
-                      <Image
-                        width="60"
-                        height="60"
-                        src={skill.icon}
-                        alt={skill.description}
-                      />
-                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                        {skill.description}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="w-full col-span-2 md:col-span-3 h-full border-4 border-green-500">
-              <h4 className="tracking-widest font-extrabold text-xl text-white bg-green-500">
-                TOOLS
-              </h4>
-              <div className="p-4 grid grid-cols-2 gap-4 justify-center">
-                {skills
-                  .filter((skill) => skill.Category.name === "TOOLS")
-                  .map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="group relative flex justify-center"
-                    >
-                      <Image
-                        width="60"
-                        height="60"
-                        src={skill.icon}
-                        alt={skill.description}
-                      />
-                      <p className="absolute opacity-0 group-hover:opacity-100 top-0 text-sm flex justify-center px-1 -translate-y-[55%] text-white bg-black duration-500">
-                        {skill.description}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="md:absolute md:w-[40%] text-center tracking-widest font-bold"
-          id="about_me_hobbies"
-        >
-          <h2 className="text-2xl md:mb-2 py-6 md:py-0">
-            <span className="text-green-500">HO</span>BBIES &{" "}
-            <span className="text-green-500">INT</span>ERESTS
-          </h2>
-          <div id="about_me_hobbies_body" className="font-normal text-justify">
-            {aboutMe
-              .filter((about) => about.section === "hobbies")
-              .map((about) => (
-                <p key={about.section}>{about.description}</p>
-              ))}
-          </div>
-        </div>
-
-        <div
-          className="md:absolute md:w-[40%] pb-5 text-center tracking-widest font-bold"
-          id="about_me_links"
-        >
-          <h2 className="text-2xl md:mb-2 py-5 md:py-0">
-            L<span className="text-green-500">INK</span>S
-          </h2>
-          <div id="about_me_links_body" className="flex gap-8 justify-center">
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={
-                aboutMe
-                  .filter((about) => about.section === "linkedin")
-                  .map((about) => about.description)
-                  .flat()[0]
-              }
-            >
-              <Image
-                width="48"
-                height="48"
-                src="https://img.icons8.com/color/160/linkedin.png"
-                alt="linkedin"
-                className="hover:rotate-[360deg] duration-[1500ms] cursor-pointer "
-              />
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={
-                aboutMe
-                  .filter((about) => about.section === "github")
-                  .map((about) => about.description)
-                  .flat()[0]
-              }
-            >
-              <Image
-                width="48"
-                height="48"
-                src="https://img.icons8.com/glyph-neue/160/github.png"
-                alt="github"
-                className="hover:rotate-[360deg] duration-[1500ms] cursor-pointer"
-              />
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={
-                `mailto:` +
-                aboutMe
-                  .filter((about) => about.section === "email")
-                  .map((about) => about.description)
-                  .flat()[0]
-              }
-            >
-              <Image
-                width="48"
-                height="48"
-                src="https://img.icons8.com/fluency/160/gmail-new.png"
-                alt="gmail"
-                className="hover:rotate-[360deg] duration-[1500ms] cursor-pointer"
-              />
-            </a>
-          </div>
-        </div> */}
       </div>
       <div className="relative md:h-screen min-w-screen flex md:flex-row flex-col justify-center items-center bg-white">
         <h2

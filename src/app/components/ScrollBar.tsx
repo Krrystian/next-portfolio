@@ -1,10 +1,13 @@
 "use client";
 import { motion, scroll, useScroll, useSpring } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ScrollBar = () => {
   const [scaleY, setScaleY] = useState(0);
-  scroll((progress) => setScaleY(progress));
+
+  useEffect(() => {
+    scroll((progress) => setScaleY(progress));
+  }, []);
   return (
     <motion.div
       style={{ scaleY: scaleY, transformOrigin: "top" }}
