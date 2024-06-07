@@ -122,7 +122,7 @@ export default function Home() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: aboutRef,
-    offset: ["start end", "end end"],
+    offset: ["start end", "end start"],
   });
 
   return (
@@ -197,14 +197,27 @@ export default function Home() {
         </svg>
       </div>
       <div
-        className="relative top-0 h-screen w-screen flex flex-col justify-center items-center bg-white "
-        id="about"
+        className="relative top-0 h-screen w-screen flex flex-col justify-center items-center bg-white border-8 border-red-500"
         ref={aboutRef}
       >
-        <motion.div
-          className="fixed w-screen bg-black h-4 bottom-0 z-50"
+        {/* <motion.div
+          className="sticky w-screen bg-black h-4 bottom-0 z-50"
           style={{ scaleX: scrollYProgress }}
-        ></motion.div>
+        ></motion.div> */}
+        <svg
+          width="312"
+          height="1287"
+          viewBox="0 0 312 1287"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <motion.path
+            d="M186.5 1L9.19655 259.962C-2.16367 276.555 -1.13687 298.67 11.7119 314.138L256.38 608.686C267.452 622.015 269.887 640.519 262.64 656.259L95.3284 1019.64C87.5895 1036.45 90.9284 1056.28 103.744 1069.63L311.5 1286"
+            stroke="#191919"
+            strokeWidth="5"
+            style={{ pathLength: scrollYProgress }}
+          />
+        </svg>
 
         {/* <div
           className="md:absolute md:w-[40%] text-center tracking-widest font-bold"
