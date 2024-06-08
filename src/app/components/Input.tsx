@@ -2,14 +2,22 @@ import React, { useState } from "react";
 interface InputProps {
   placeholder: string;
   type?: string;
+  referenceInput?: React.RefObject<HTMLInputElement>;
+  referenceArea?: React.RefObject<HTMLTextAreaElement>;
 }
-const Input: React.FC<InputProps> = ({ placeholder, type }) => {
+const Input: React.FC<InputProps> = ({
+  placeholder,
+  type,
+  referenceArea,
+  referenceInput,
+}) => {
   const [onFocus, setOnFocus] = useState(false);
   const [value, setValue] = useState("");
   return (
     <div className="relative">
       {type === "textarea" ? (
         <textarea
+          ref={referenceArea}
           name={placeholder}
           id={placeholder}
           className="resize-none focus:outline-none py-1 text-xl w-full"
@@ -25,6 +33,7 @@ const Input: React.FC<InputProps> = ({ placeholder, type }) => {
           type={type ? type : "text"}
           name={placeholder}
           id={placeholder}
+          ref={referenceInput}
           className="text-xl focus:outline-none py-2 w-full"
           onFocus={() => setOnFocus(true)}
           onBlur={() => setOnFocus(false)}

@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { sendMail } from "@/utils/mail";
 import ProjectItem from "./components/ProjectItem";
-import { motion, scroll, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import ScrollBar from "./components/ScrollBar";
 import Navbar from "./components/Navbar";
 import AddSkillModal from "./components/modals/AddSkillModal";
@@ -62,26 +62,20 @@ export default function Home() {
     skillList();
     aboutMeList();
     projectFavList();
-
-    // const about = document.getElementById("about") as Element;
-    // scroll(
-    //   (progress) => {
-    //     setScrollY(progress);
-    //   },
-    //   {
-    //     axis: "y",
-    //     source: about,
-    //   }
-    // );
   }, []);
 
   useAnimationHook();
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("Send");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
+    setStatus("Loading...");
     setSubmit(true);
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -100,9 +94,11 @@ export default function Home() {
         const res = await data.json();
         if (data.status === 400) {
           console.error(res.error);
+          setStatus("Error sending message. Try again later.");
           setLoading(false);
           return;
         }
+        setStatus("Message sent!");
         setLoading(false);
         sendMail({
           to: "krystiancichorz708@gmail.com",
@@ -112,9 +108,15 @@ export default function Home() {
                 <p>NAME: ${res.name}</p>
                 <p>${res.message}</p>`,
         });
+        if (nameRef.current && emailRef.current && messageRef.current) {
+          nameRef.current.value = "";
+          emailRef.current.value = "";
+          messageRef.current.value = "";
+        }
       });
     } catch (error) {
       console.error(error);
+      setStatus("Error sending message. Try again later.");
       setLoading(false);
     }
   };
@@ -125,6 +127,32 @@ export default function Home() {
     offset: ["start 0.8", "end center"],
   });
 
+  const expRef = useRef<HTMLDivElement>(null);
+  const hobRef = useRef<HTMLDivElement>(null);
+  const techRef = useRef<HTMLDivElement>(null);
+  const conRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const { scrollYProgress: scrollYProgressExp } = useScroll({
+    target: expRef,
+    offset: ["start 0.6", "center center"],
+  });
+  const { scrollYProgress: scrollYProgressHob } = useScroll({
+    target: hobRef,
+    offset: ["start 0.6", "center center"],
+  });
+  const { scrollYProgress: scrollYProgressTech } = useScroll({
+    target: techRef,
+    offset: ["start 0.6", "0.2 center"],
+  });
+  const { scrollYProgress: scrollYCon } = useScroll({
+    target: conRef,
+    offset: ["start center", "center center"],
+  });
+  const { scrollYProgress: scrollYForm } = useScroll({
+    target: formRef,
+    offset: ["center 0.8", "end 0.8"],
+  });
+  const wd = useTransform(scrollYCon, [0, 1], ["0%", "100%"]);
   return (
     <main className="relative">
       <ScrollBar />
@@ -159,7 +187,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="relative bg-[#191919] min-h-screen  w-screen flex flex-col justify-center items-center pb-[50px]">
+      <div className="relative bg-[#191919] min-h-screen w-screen flex flex-col justify-center items-center pb-[50px]">
         <svg
           className="absolute top-0 translate-y-[-60%] w-full"
           viewBox="0 0 1440 152"
@@ -198,234 +226,227 @@ export default function Home() {
         </svg> */}
       </div>
       <div
-        className="relative py-[192px] w-screen flex flex-col justify-center items-center bg-white gap-48 text-xl"
+        className="relative w-screen flex flex-col justify-center items-center bg-white gap-48 text-xl"
         ref={aboutRef}
       >
-        {/* <svg
-          width="312"
-          height="1287"
-          viewBox="0 0 312 1287"
+        <svg
+          width="1063"
+          height="2004"
+          viewBox="0 0 1063 2004"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute w-full top-0"
+          className="absolute top-[-5px] h-[102%]"
         >
           <motion.path
-            d="M186.5 1L9.19655 259.962C-2.16367 276.555 -1.13687 298.67 11.7119 314.138L256.38 608.686C267.452 622.015 269.887 640.519 262.64 656.259L95.3284 1019.64C87.5895 1036.45 90.9284 1056.28 103.744 1069.63L311.5 1286"
+            d="M13.5 1L207.255 121.044C231.089 135.81 258.042 144.805 285.967 147.311L602.765 175.742C623.107 177.567 642.989 182.841 661.561 191.338L899.346 300.124C936.659 317.194 967.019 346.5 985.397 383.186L1025.47 463.18C1062.27 536.641 1044.66 625.698 982.663 679.618L945.447 711.986C894 756.733 821.685 768.569 758.656 742.559L542.436 653.33C518.752 643.556 493.254 638.951 467.647 639.823L249.879 647.236C189.95 649.276 134.972 681.026 103.251 731.913L28.3129 852.13C-10.295 914.066 -7.68253 993.184 34.9269 1052.44L78.4817 1113.01C107.816 1153.8 152.865 1180.47 202.738 1186.58L425.351 1213.85C455.62 1217.56 486.335 1213.51 514.614 1202.1L672.018 1138.55C732.513 1114.13 801.486 1124.36 852.297 1165.27L994.405 1279.72C1061.08 1333.41 1080.71 1426.64 1041.36 1502.66L979.325 1622.48C950.815 1677.55 895.964 1714.07 834.156 1719.13L715.372 1728.85C631.991 1735.67 564.302 1799.05 552.007 1881.8L534 2003"
             stroke="#191919"
-            strokeWidth="5"
+            strokeWidth="10"
             style={{ pathLength: scrollYProgress }}
+          />
+        </svg>
+
+        {/* <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-start"
+        >
+          <motion.path
+            d="M2 0L353 166.667L2 333.333L353 500L2 666.667L353 833.333L2 1000L353 1166.67L2 1333.33L353 1500L2 1666.67L353 1833.33L2 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
+        </svg>
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-start"
+        >
+          <motion.path
+            d="M353 0L2 166.667L353 333.333L2 500L353 666.667L2 833.333L353 1000L2 1166.67L353 1333.33L2 1500L353 1666.67L2 1833.33L353 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
+        </svg>
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-end"
+        >
+          <motion.path
+            d="M2 0L353 166.667L2 333.333L353 500L2 666.667L353 833.333L2 1000L353 1166.67L2 1333.33L353 1500L2 1666.67L353 1833.33L2 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
+          />
+        </svg>
+        <svg
+          width="355"
+          height="2000"
+          viewBox="0 0 355 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-[-10px] h-full self-end"
+        >
+          <motion.path
+            d="M353 0L2 166.667L353 333.333L2 500L353 666.667L2 833.333L353 1000L2 1166.67L353 1333.33L2 1500L353 1666.67L2 1833.33L353 2000"
+            stroke="#191919"
+            strokeWidth="20"
+            style={{ pathLength: scrollYProgress }}
+            strokeLinecap={"round"}
           />
         </svg> */}
-        <svg
-          width="355"
-          height="2000"
-          viewBox="0 0 355 2000"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-[-10px] h-full self-start"
-        >
-          <motion.path
-            d="M2 0L353 166.667L2 333.333L353 500L2 666.667L353 833.333L2 1000L353 1166.67L2 1333.33L353 1500L2 1666.67L353 1833.33L2 2000"
-            stroke="#191919"
-            strokeWidth="20"
-            style={{ pathLength: scrollYProgress }}
-            strokeLinecap={"round"}
-          />
-        </svg>
-        <svg
-          width="355"
-          height="2000"
-          viewBox="0 0 355 2000"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-[-10px] h-full self-start"
-        >
-          <motion.path
-            d="M353 0L2 166.667L353 333.333L2 500L353 666.667L2 833.333L353 1000L2 1166.67L353 1333.33L2 1500L353 1666.67L2 1833.33L353 2000"
-            stroke="#191919"
-            strokeWidth="20"
-            style={{ pathLength: scrollYProgress }}
-            strokeLinecap={"round"}
-          />
-        </svg>
-        <svg
-          width="355"
-          height="2000"
-          viewBox="0 0 355 2000"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-[-10px] h-full self-end"
-        >
-          <motion.path
-            d="M2 0L353 166.667L2 333.333L353 500L2 666.667L353 833.333L2 1000L353 1166.67L2 1333.33L353 1500L2 1666.67L353 1833.33L2 2000"
-            stroke="#191919"
-            strokeWidth="20"
-            style={{ pathLength: scrollYProgress }}
-            strokeLinecap={"round"}
-          />
-        </svg>
-        <svg
-          width="355"
-          height="2000"
-          viewBox="0 0 355 2000"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-[-10px] h-full self-end"
-        >
-          <motion.path
-            d="M353 0L2 166.667L353 333.333L2 500L353 666.667L2 833.333L353 1000L2 1166.67L353 1333.33L2 1500L353 1666.67L2 1833.33L353 2000"
-            stroke="#191919"
-            strokeWidth="20"
-            style={{ pathLength: scrollYProgress }}
-            strokeLinecap={"round"}
-          />
-        </svg>
-
-        <div className="w-[40%] text-[#191919] flex flex-col gap-8">
-          <h2 className="text-9xl font-bold text-center">Experience</h2>
-          {aboutMe
-            .filter((about) => about.section === "experience")
-            .map((about) => (
-              <p key={about.section} className="text-justify">
-                {about.description}
-              </p>
-            ))}
-        </div>
-        <div className="w-[40%] text-[#191919] flex flex-col gap-8">
-          <h2 className="text-9xl font-bold text-center">Hobbies</h2>
-          {aboutMe
-            .filter((about) => about.section === "hobbies")
-            .map((about) => (
-              <p key={about.section} className="text-justify">
-                {about.description}
-              </p>
-            ))}
-        </div>
-        <div className="w-[60%] text-[#191919] flex flex-col self-center items-center">
-          <h2 className="text-9xl font-bold pb-8 text-center">Technologies</h2>
-          <h3 className="text-4xl font-bold text-center pb-4">Frontend</h3>
-          <div className="flex gap-4 ">
-            {skills
-              .filter((skill) => skill.Category.name === "FRONTEND")
-              .map((skill) => (
-                <p className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center">
-                  <Image
-                    src={skill.icon}
-                    alt={""}
-                    width={20}
-                    height={20}
-                  ></Image>
-                  {skill.description}
+        <div className="w-full h-full flex flex-col justify-center items-center gap-48 backdrop-blur-sm">
+          <motion.div
+            className="mt-[192px] w-[40%] text-[#191919] flex flex-col gap-8 opacity-0"
+            ref={expRef}
+            style={{ opacity: scrollYProgressExp }}
+          >
+            <h2 className="text-9xl font-bold text-center">Experience</h2>
+            {aboutMe
+              .filter((about) => about.section === "experience")
+              .map((about) => (
+                <p key={about.section} className="text-justify">
+                  {about.description}
                 </p>
               ))}
-          </div>
-          <h3 className="text-4xl font-bold text-center p-4">Backend</h3>
-          <div className="flex gap-4">
-            {skills
-              .filter(
-                (skill) =>
-                  skill.Category.name === "BACKEND" ||
-                  skill.Category.name === "DEVOPS"
-              )
-              .map((skill) => (
-                <p className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center">
-                  <Image
-                    src={skill.icon}
-                    alt={""}
-                    width={20}
-                    height={20}
-                  ></Image>
-                  {skill.description}
+          </motion.div>
+          <motion.div
+            className="w-[40%] text-[#191919] flex flex-col gap-8 opacity-0"
+            ref={hobRef}
+            style={{ opacity: scrollYProgressHob }}
+          >
+            <h2 className="text-9xl font-bold text-center">Hobbies</h2>
+            {aboutMe
+              .filter((about) => about.section === "hobbies")
+              .map((about) => (
+                <p key={about.section} className="text-justify">
+                  {about.description}
                 </p>
               ))}
-          </div>
-          <h3 className="text-4xl font-bold text-center p-4">Languages</h3>
-          <div className="flex gap-4">
-            {skills
-              .filter((skill) => skill.Category.name === "LANGUAGES")
-              .map((skill) => (
-                <p className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center">
-                  <Image
-                    src={skill.icon}
-                    alt={skill.description}
-                    width={20}
-                    height={20}
-                  ></Image>
-                  {skill.description}
-                </p>
-              ))}
-          </div>
+          </motion.div>
+          <motion.div
+            className="w-[50%] text-[#191919] flex flex-col self-center items-center opacity-0 pb-[192px]"
+            ref={techRef}
+            style={{ opacity: scrollYProgressTech }}
+          >
+            <h2 className="text-9xl font-bold pb-8 text-center">
+              Technologies
+            </h2>
+            <h3 className="text-4xl font-bold text-center pb-4">Frontend</h3>
+            <div className="flex gap-4">
+              {skills
+                .filter((skill) => skill.Category.name === "FRONTEND")
+                .map((skill, index) => (
+                  <p
+                    className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center"
+                    key={index}
+                  >
+                    <Image
+                      src={skill.icon}
+                      alt={""}
+                      width={20}
+                      height={20}
+                    ></Image>
+                    {skill.description}
+                  </p>
+                ))}
+            </div>
+            <h3 className="text-4xl font-bold text-center p-4">Backend</h3>
+            <div className="flex gap-4">
+              {skills
+                .filter(
+                  (skill) =>
+                    skill.Category.name === "BACKEND" ||
+                    skill.Category.name === "DEVOPS"
+                )
+                .map((skill, index) => (
+                  <p
+                    className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center"
+                    key={index}
+                  >
+                    <Image
+                      src={skill.icon}
+                      alt={""}
+                      width={20}
+                      height={20}
+                    ></Image>
+                    {skill.description}
+                  </p>
+                ))}
+            </div>
+            <h3 className="text-4xl font-bold text-center p-4">Languages</h3>
+            <div className="flex gap-4">
+              {skills
+                .filter((skill) => skill.Category.name === "LANGUAGES")
+                .map((skill, index) => (
+                  <p
+                    className="bg-green-500 text-white px-4 py-2 flex gap-2 justify-center items-center"
+                    key={index}
+                  >
+                    <Image
+                      src={skill.icon}
+                      alt={skill.description}
+                      width={20}
+                      height={20}
+                    ></Image>
+                    {skill.description}
+                  </p>
+                ))}
+            </div>
+          </motion.div>
         </div>
       </div>
-      <div className="relative md:h-screen min-w-screen flex md:flex-row flex-col justify-center items-center bg-white">
-        <h2
-          className="md:absolute tracking-widest hidden md:flex col-span-3 text-4xl items-center justify-center w-full font-extrabold"
-          id="contact_title_middle"
-        >
-          <span id="contact_title_left">CON</span>
-          TACT
-        </h2>
-        <h2 className="md:absolute tracking-widest col-span-3 text-4xl flex items-center justify-center w-full font-extrabold pb-5 top-[5vh]">
-          <span id="contact_title_left_top" className="md:opacity-0 ">
-            CON
-          </span>
-          <span id="contact_title_right_top" className="md:opacity-0">
-            TACT
-          </span>
-        </h2>
-        <figure
-          className="absolute hidden md:block h-full bg-black left-0 w-0 -translate-x-8 z-10"
-          id="left_wall"
-        />
-
-        <div className="md:grid md:grid-cols-2 flex flex-col w-full h-full justify-center items-center select-auto">
-          <form
-            className="w-full flex justify-center relative pb-[67px] md:pb-0"
-            id="contact_form"
+      <div className="relative h-[93vh] flex md:flex-row flex-col justify-center items-center bg-white">
+        <div className="flex flex-col w-full h-full items-center gap-24">
+          <motion.h2
+            className="text-7xl text-white bg-[#191919] py-8 text-center font-bold w-0 text-nowrap"
+            ref={conRef}
+            style={{ width: wd }}
+          >
+            Leave something behind
+          </motion.h2>
+          <motion.form
+            className="w-full flex justify-center relative opacity-0"
+            ref={formRef}
+            style={{ opacity: scrollYForm }}
             method="post"
             onSubmit={onSubmit}
           >
-            <div className="flex flex-col gap-8 w-full md:w-1/2">
-              <div
-                id="contact_body"
-                className={`flex flex-col gap-8 duration-500 transition-all ${
-                  submit ? "opacity-0 -z-10" : "opacity-100 z-0"
-                }`}
-              >
-                <Input placeholder="Email" type="email" />
-                <Input placeholder="Name" />
-                <Input placeholder="Message" type="textarea" />
-              </div>
+            <div className="flex flex-col gap-8 w-[40%]">
+              <Input
+                placeholder="Email"
+                type="email"
+                referenceInput={emailRef}
+              />
+              <Input placeholder="Name" referenceInput={nameRef} />
+              <Input
+                placeholder="Message"
+                type="textarea"
+                referenceArea={messageRef}
+              />
               <button
                 type="submit"
-                id="contact_button"
-                disabled={submit ? true : false}
-                className={`bg-green-500 text-white md:w-1/3 w-full self-center absolute bottom-0 md:translate-y-16 duration-1000 transition-all ${
-                  submit ? "h-full md:translate-y-0" : "h-10"
-                }`}
+                className="bg-green-500 text-white py-2 px-4 h-12 hover:bg-green-700 transition-all duration-300 ease-in-out"
+                disabled={loading}
               >
-                {submit ? "Thank you for contacting me!" : "Send"}
+                {status}
               </button>
             </div>
-          </form>
-          <div className="text-xl md:p-4 py-7" id="contact_words">
-            <p className="">
-              I hope you enjoyed your stay here. It was a pleasure to host you
-              in my humble corner. Hope to talk to you again someday, but for
-              now, take care and experience your beautiful day.
-            </p>
-            <br />
-            <p
-              id="contact_hidden"
-              className={`overflow-hidden duration-500 ${
-                submit ? "h-full" : "h-0"
-              }`}
-            >
-              Thank you for contacting me. I will try to respond to your message
-              in the next few days.
-            </p>
-            <p className="italic font-bold text-black/60">Krystian Cichorz</p>
-          </div>
+          </motion.form>
         </div>
         <footer className="md:absolute bottom-0 w-full bg-black text-white px-2 py-1 z-20 flex justify-between text-sm md:text-base">
           <p>
