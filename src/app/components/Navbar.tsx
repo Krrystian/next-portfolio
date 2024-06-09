@@ -40,7 +40,7 @@ const Navbar = () => {
         >
           Projects
         </Link>
-        <ScrollTo target="contact" text="Contact" />
+        <ScrollTo target="contact_form" text="Contact" />
       </div>
       <div className="md:hidden flex items-center">
         <HiOutlineMenu

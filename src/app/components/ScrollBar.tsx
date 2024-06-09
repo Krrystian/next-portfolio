@@ -11,7 +11,7 @@ const ScrollBar = () => {
   return (
     <motion.div
       style={{ scaleY: scaleY, transformOrigin: "top" }}
-      className="fixed bg-black w-2 overflow-hidden h-full z-[60] right-0"
+      className="fixed bg-black w-2 overflow-hidden h-full z-[60] right-0 hidden md:block"
       initial={{ scaleY: 0 }}
     >
       abc
