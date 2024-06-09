@@ -13,7 +13,7 @@ import ShowMessageModal from "./components/modals/ShowMessageModal";
 import ProjectModal from "./components/modals/ProjectModal";
 import MenuList from "./components/MenuList";
 import Loading from "./components/Loading";
-
+//LINKI NA GŁÓWNEJ STRONIE ZROBIĆ
 type Skill = {
   id: number;
   icon: string;
@@ -76,7 +76,6 @@ export default function Home() {
 
   const increaseLoading = (value: number) => {
     setLoadingWidth((prev) => prev + value);
-    console.log(loadingWidth);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -163,8 +162,8 @@ export default function Home() {
   return (
     <>
       <div
-        className={`duration-1000 transition-all fixed z-[60] ${
-          prepared ? "opacity-0" : "opacity-100"
+        className={`duration-1000 transition-all fixed  ${
+          prepared ? "opacity-0 -z-10" : "opacity-100 z-[60]"
         }`}
       >
         <Loading
@@ -172,7 +171,6 @@ export default function Home() {
           complete={() => {
             if (!prepared) {
               setPrepared(true);
-              console.log("prepared");
             }
           }}
         />
