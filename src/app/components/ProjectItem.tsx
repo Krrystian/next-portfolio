@@ -9,6 +9,7 @@ interface ProjectItemProps {
   github: string;
   demo: string;
   reverse?: boolean;
+  loaded?: () => void;
 }
 
 const ProjectItem: React.FC<ProjectItemProps> = ({
@@ -18,7 +19,13 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   github,
   demo,
   reverse,
+  loaded,
 }) => {
+  const onLoad = () => {
+    if (loaded) {
+      loaded();
+    }
+  };
   return (
     <div
       className={`grid grid-cols-1 md:grid-cols-2 w-screen h-[93vh] text-white z-10 sticky top-[7vh]`}
@@ -48,13 +55,27 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
             </div>
           </div>
           <div className="relative">
-            <Image src={image} alt={title} fill className="object-cover" />
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover"
+              priority
+              onLoad={onLoad}
+            />
           </div>
         </>
       ) : (
         <>
           <div className="relative">
-            <Image src={image} alt={title} fill className="object-cover" />
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover"
+              priority
+              onLoad={onLoad}
+            />
           </div>
           <div className="flex flex-col gap-6 p-6 bg-[#191919]">
             <h3 className="text-7xl text-center">{title}</h3>

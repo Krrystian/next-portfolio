@@ -4,10 +4,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-const useAnimationHook = () => {
+const useAnimationHook = (prepared: boolean) => {
   useEffect(() => {
+    if (!prepared) return;
+
     gsap.registerPlugin(ScrollTrigger);
-    //Animate landing page
+
     const l1 = new SplitType("#l1", { types: "chars" });
     const l2 = new SplitType("#l2", { types: "chars" });
     const l3 = new SplitType("#l3", { types: "chars" });
@@ -28,10 +30,11 @@ const useAnimationHook = () => {
         opacity: 1,
         stagger: 0.05,
         duration: 2,
+        delay: 1,
         ease: "power4.out",
       }
     );
-  }, []);
+  }, [prepared]);
 };
 
 export default useAnimationHook;
