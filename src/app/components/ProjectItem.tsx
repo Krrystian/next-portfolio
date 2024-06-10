@@ -4,12 +4,13 @@ import React from "react";
 
 interface ProjectItemProps {
   title: string;
-  description: string;
+  description: string[];
   image: string;
   github: string;
   demo: string;
   reverse?: boolean;
   loaded?: () => void;
+  stack?: { description: string }[];
 }
 
 const ProjectItem: React.FC<ProjectItemProps> = ({
@@ -20,6 +21,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   demo,
   reverse,
   loaded,
+  stack,
 }) => {
   const onLoad = () => {
     if (loaded) {
@@ -34,7 +36,22 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
         <>
           <div className="flex flex-col gap-6 p-6 bg-[#191919]">
             <h3 className="text-7xl text-center">{title}</h3>
-            <p>{description}</p>
+            {description.map((desc, index) => (
+              <p className="text-xl text-justify" key={index}>
+                {desc}
+              </p>
+            ))}
+            <div className="flex gap-4 justify-center flex-wrap">
+              {stack &&
+                stack.map((tech, index) => (
+                  <p
+                    className="text-xl px-4 py-2 bg-green-500 rounded-xl"
+                    key={index}
+                  >
+                    {tech.description}
+                  </p>
+                ))}
+            </div>
             <div className="flex gap-4 justify-center">
               <Link
                 href={github}
@@ -79,7 +96,22 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           </div>
           <div className="flex flex-col gap-6 p-6 bg-[#191919]">
             <h3 className="text-7xl text-center">{title}</h3>
-            <p>{description}</p>
+            {description.map((desc, index) => (
+              <p className="text-xl text-justify" key={index}>
+                {desc}
+              </p>
+            ))}
+            <div className="flex gap-4 justify-center flex-wrap">
+              {stack &&
+                stack.map((tech, index) => (
+                  <p
+                    className="text-xl px-4 py-2 bg-green-500 rounded-xl"
+                    key={index}
+                  >
+                    {tech.description}
+                  </p>
+                ))}
+            </div>
             <div className="flex gap-4 justify-center">
               <Link
                 href={github}

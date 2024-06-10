@@ -4,12 +4,14 @@ import { useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Loading from "../components/Loading";
-import { set } from "react-hook-form";
 type Project = {
   id: string;
   title: string;
   shortDescription: string;
-  images: string[];
+  images: {
+    url: string;
+    main: boolean;
+  }[];
 };
 
 const Card = ({
@@ -23,7 +25,9 @@ const Card = ({
     <div className="relative bg-white w-full h-full overflow-hidden flex items-center justify-center cursor-pointer group">
       <div className="absolute w-full h-full group-hover:grayscale duration-300 transition-all">
         <Image
-          src={project.images[0]}
+          src={
+            project.images.find((image: any) => image.main == true)?.url || ""
+          }
           alt={"Project image"}
           fill
           className="object-cover group-hover:scale-125 duration-300 transition-all"
@@ -47,7 +51,7 @@ const Card = ({
         <div className="absolute w-full h-full flex items-center justify-center flex-col">
           <h1 className="text-4xl text-[#191919]">{project.title}</h1>
           <p className="text-xl italic text-[#191919]/70">
-            It's all about dogs
+            {project.shortDescription}
           </p>
         </div>
       </div>

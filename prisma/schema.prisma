@@ -15,17 +15,23 @@ model User {
   lastName  String
 }
 
+type image {
+  url      String
+  position Int
+  main     Boolean @default(false)
+}
+
 model Project {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   title            String
-  description      String
+  description      String[]
   shortDescription String   @default("")
   stackIds         String[] @db.ObjectId
   stack            Skill[]  @relation(fields: [stackIds], references: [id])
   github           String
   demo             String
   favorite         Boolean  @default(false)
-  images           String[] @default([])
+  images           image[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }

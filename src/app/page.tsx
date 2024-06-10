@@ -13,7 +13,10 @@ import ShowMessageModal from "./components/modals/ShowMessageModal";
 import ProjectModal from "./components/modals/ProjectModal";
 import MenuList from "./components/MenuList";
 import Loading from "./components/Loading";
+
 //LINKI NA GŁÓWNEJ STRONIE ZROBIĆ
+//DB pozmieniac zdjecia na lepsze
+
 type Skill = {
   id: number;
   icon: string;
@@ -27,10 +30,18 @@ type AboutMe = {
   description: string;
 };
 type Project = {
+  description: string[];
+  github: string;
+  demo: string;
   id: string;
   title: string;
-  shortDescription: string;
-  images: string[];
+  images: {
+    url: string;
+    main: boolean;
+  }[];
+  stack: {
+    description: string;
+  }[];
 };
 
 export default function Home() {
@@ -57,6 +68,7 @@ export default function Home() {
     await fetch("/api/project/getFavourite").then(async (res) => {
       const data = await res.json();
       setProjects(data);
+      console.log(data);
     });
   };
 
@@ -220,18 +232,23 @@ export default function Home() {
             />
           </svg>
           <div className="flex flex-col gap-16 z-20">
-            {projects.map((project, index) => (
-              <ProjectItem
-                key={project.id}
-                title={project.title}
-                image={project.images[0]}
-                description="lorem ipsum"
-                github="#"
-                demo="#"
-                loaded={() => increaseLoading(20)}
-                reverse={index % 2 !== 0}
-              />
-            ))}
+            {projects.length > 0 &&
+              projects.map((project, index) => (
+                <ProjectItem
+                  key={project.id}
+                  title={project.title}
+                  image={
+                    project.images.find((image: any) => image.main == true)
+                      ?.url || ""
+                  }
+                  description={project.description}
+                  github={project.github}
+                  demo={project.demo}
+                  loaded={() => increaseLoading(20)}
+                  reverse={index % 2 !== 0}
+                  stack={project.stack}
+                />
+              ))}
           </div>
         </div>
         <div

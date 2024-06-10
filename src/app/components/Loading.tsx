@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import { useEffect } from "react";
+import { gsap } from "gsap";
 
 interface LoadingProps {
   width: number;
@@ -14,6 +16,10 @@ const Loading: React.FC<LoadingProps> = ({ width, complete }) => {
     }
   }, [width, complete]);
 
+  React.useEffect(() => {
+    gsap.to("#refresh", { opacity: "100%", delay: 3 });
+  }, []);
+
   return (
     <div className="w-screen h-screen flex gap-16 flex-col justify-center items-center bg-white overflow-hidden">
       <h1 className="text-3xl md:text-7xl font-medium">
@@ -27,6 +33,9 @@ const Loading: React.FC<LoadingProps> = ({ width, complete }) => {
           ></div>
         </div>
       </div>
+      <h2 className="w-screen text-xl text-center opacity-0" id="refresh">
+        Refresh if it's taking too long
+      </h2>
     </div>
   );
 };
