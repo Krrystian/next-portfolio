@@ -189,7 +189,6 @@ export default function Home() {
       </div>
       <main className="relative">
         <ScrollBar />
-        <Navbar />
         <AddSkillModal />
         <ShowMessageModal />
         <ProjectModal />

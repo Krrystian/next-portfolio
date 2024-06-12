@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Loading from "../components/Loading";
+import Link from "next/link";
 type Project = {
   id: string;
   title: string;
@@ -22,7 +23,10 @@ const Card = ({
   complete: () => void;
 }) => {
   return (
-    <div className="relative bg-white w-full h-full overflow-hidden flex items-center justify-center cursor-pointer group">
+    <Link
+      href={`/project/${project.id}`}
+      className="relative bg-white w-full h-full overflow-hidden flex items-center justify-center cursor-pointer group"
+    >
       <div className="absolute w-full h-full group-hover:grayscale duration-300 transition-all">
         <Image
           src={
@@ -55,7 +59,7 @@ const Card = ({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -90,7 +94,6 @@ const Page = () => {
       </div>
 
       <section className="scroll-smooth w-screen h-screen relative">
-        <Navbar />
         <div className="pt-[7vh] h-screen w-screen overflow-y-hidden overflow-hidden grid grid-cols-4 p-8">
           {projects.map((project) => (
             <Card

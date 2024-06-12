@@ -1,5 +1,5 @@
 "use client";
-import { motion, scroll, useScroll, useSpring } from "framer-motion";
+import { motion, scroll } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
 const ScrollBar = () => {

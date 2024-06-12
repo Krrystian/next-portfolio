@@ -1,0 +1,68 @@
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import React, { useState, useEffect } from "react";
+interface MouseProps {
+  element?: React.RefObject<HTMLDivElement>;
+}
+const Mouse: React.FC<MouseProps> = ({ element }) => {
+  const mouse = { x: useMotionValue(0), y: useMotionValue(0) };
+  const [isHovered, setIsHovered] = useState(false);
+  const cursorSize = isHovered ? 60 : 18;
+  const offset = useMotionValue(cursorSize / 2);
+
+  useEffect(() => {
+    if (cursorSize === 60) offset.set(cursorSize / 2 + 7);
+    else offset.set(cursorSize / 2);
+  }, [cursorSize, offset]);
+
+  const manageMouse = (e: MouseEvent) => {
+    mouse.x.set(e.clientX - offset.get());
+    mouse.y.set(e.clientY - offset.get());
+  };
+
+  const smoothMouse = {
+    x: useSpring(mouse.x, { stiffness: 300, damping: 20, mass: 0.5 }),
+    y: useSpring(mouse.y, { stiffness: 300, damping: 20, mass: 0.5 }),
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    manageMouse(e);
+  };
+  const enterMouse = () => {
+    setIsHovered(true);
+  };
+  const leaveMouse = () => {
+    setIsHovered(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    if (element?.current) {
+      element.current.addEventListener("mouseenter", enterMouse);
+      element.current.addEventListener("mouseleave", leaveMouse);
+    }
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (element?.current) {
+        element.current.addEventListener("mouseenter", enterMouse);
+        element.current.addEventListener("mouseleave", leaveMouse);
+      }
+    };
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed backdrop-invert rounded-full pointer-events-none z-50 flex justify-center items-center"
+      style={{
+        x: smoothMouse.x,
+        y: smoothMouse.y,
+        mixBlendMode: isHovered ? "normal" : "difference",
+        backgroundColor: isHovered ? "white" : "black",
+      }}
+      animate={{ width: cursorSize, height: cursorSize, scale: 1 }}
+    >
+      <motion.div animate={{ opacity: isHovered ? 1 : 0 }}>View</motion.div>
+    </motion.div>
+  );
+};
+
+export default Mouse;
