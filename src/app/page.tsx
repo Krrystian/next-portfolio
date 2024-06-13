@@ -191,9 +191,8 @@ export default function Home() {
         <AddSkillModal />
         <ShowMessageModal />
         <ProjectModal />
-        <MenuList />
         <div
-          className="h-screen min-w-screen flex justify-center items-center sticky top-0"
+          className="h-screen min-w-screen flex justify-center items-center md:sticky top-0"
           id="landing_page"
         >
           <div className="flex flex-col gap-4">

@@ -30,11 +30,11 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   };
   return (
     <div
-      className={`grid grid-cols-1 md:grid-cols-2 w-screen h-[93vh] text-white z-10 sticky top-[7vh]`}
+      className={`grid grid-cols-1 md:grid-cols-2 w-screen min-h-[93vh] text-white z-10 bg-[#191919] md:sticky top-[7vh]`}
     >
       {reverse ? (
         <>
-          <div className="flex flex-col gap-6 p-6 bg-[#191919]">
+          <div className="flex flex-col gap-6 p-6">
             <h3 className="text-7xl text-center">{title}</h3>
             {description.map((desc, index) => (
               <p className="text-xl text-justify" key={index}>
@@ -71,7 +71,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
               </Link>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative h-48 md:h-full">
             <Image
               src={image}
               alt={title}
@@ -84,7 +84,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
         </>
       ) : (
         <>
-          <div className="relative">
+          <div className="relative h-48 md:h-full">
             <Image
               src={image}
               alt={title}

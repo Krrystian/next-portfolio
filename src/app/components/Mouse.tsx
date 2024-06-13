@@ -51,7 +51,7 @@ const Mouse: React.FC<MouseProps> = ({ element }) => {
 
   return (
     <motion.div
-      className="fixed backdrop-invert rounded-full pointer-events-none z-50 flex justify-center items-center"
+      className=" hidden md:fixed backdrop-invert rounded-full pointer-events-none z-50 md:flex justify-center items-center"
       style={{
         x: smoothMouse.x,
         y: smoothMouse.y,

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "./components/SessionProvider";
 import StoreProvider from "./providers/Provider";
 import Navbar from "./components/Navbar";
+import MenuList from "./components/MenuList";
 
 const lato = Lato({ weight: "400", subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default async function RootLayout({
         <StoreProvider>
           <SessionProvider session={session}>
             <Navbar />
+            <MenuList />
             {children}
           </SessionProvider>
         </StoreProvider>

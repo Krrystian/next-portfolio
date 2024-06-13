@@ -90,21 +90,24 @@ const Page = () => {
         />
       </div>
       <Mouse element={imageRef} />
-      <section className="relative w-screen top-[7vh] flex flex-col min-h-[100vh] px-16 items-center">
+      <section className="relative w-screen top-[7vh] flex flex-col min-h-[93vh] md:px-16 items-center">
         <ScrollBar />
-        <div className="grid grid-cols-2 gap-16 items-center w-full h-[93vh] top-[7vh] pb-24 sticky ">
+        <div className="grid grod-cols-1 md:grid-cols-2 gap-16 items-center w-full h-[93vh] top-[7vh] pb-24 sticky">
           <div className="flex flex-col gap-4">
-            <h1 className="text-9xl font-extrabold text-left w-full pb-16">
+            <h1 className="text-7xl md:text-9xl md:text-start text-center font-extrabold w-full px-4 md:px-0 md:pb-16">
               {project.title}
             </h1>
             {project.description.map((desc, index) => (
-              <p key={index} className="text-2xl text-left">
+              <p
+                key={index}
+                className="md:text-2xl text-sm text-left px-4 md:px-0"
+              >
                 {desc}
               </p>
             ))}
           </div>
           <motion.div
-            className="overflow-hidden rounded-3xl w-full h-full cursor-pointer relative flex flex-row"
+            className="overflow-hidden blur-xl md:opacity-100 opacity-60 md:blur-0 rounded-3xl md:w-full w-screen h-full cursor-pointer md:relative absolute z-[-1] md:z-auto flex flex-row"
             ref={imageRef}
           >
             {project.images[0] && (
@@ -152,7 +155,7 @@ const Page = () => {
               }}
               className="relative w-full flex flex-row bg-white overflow-hidden"
             >
-              <div className="relative w-[50%] flex justify-center items-center">
+              <div className="relative w-[50%] hidden md:flex justify-center items-center">
                 {project.images[2] && (
                   <Image
                     src={project.images[2].url}
@@ -165,17 +168,19 @@ const Page = () => {
                   ></Image>
                 )}
               </div>
-              <div className="w-full p-16">
-                <p className="text-7xl w-full font-bold pb-8 tracking-wide">
-                  Software stack
-                </p>
-                <ul className="list-disc flex flex-col gap-4 px-8">
-                  {project.stack.map((stack, index) => (
-                    <li key={index} className="text-2xl">
-                      {stack.description}
-                    </li>
-                  ))}
-                </ul>
+              <div className="w-full p-4 md:p-16 flex flex-col justify-between">
+                <div>
+                  <p className="text-4xl text-center md:text-start md:text-7xl w-full font-bold pb-8 tracking-wide">
+                    Software stack
+                  </p>
+                  <ul className="list-disc flex flex-col gap-4 px-8">
+                    {project.stack.map((stack, index) => (
+                      <li key={index} className="text-xl md:text-2xl">
+                        {stack.description}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <div className="w-full grid grid-cols-2 py-8">
                   <a
                     href={project.github}
@@ -194,7 +199,7 @@ const Page = () => {
                 </div>
               </div>
               <motion.div
-                className="absolute bg-white flex items-center w-full justify-center overflow-hidden"
+                className="absolute bg-purple-300 flex items-center w-full justify-center overflow-hidden"
                 style={{ height: padding2 }}
               >
                 <div>
@@ -203,6 +208,7 @@ const Page = () => {
                     width={1280}
                     height={720}
                     controls
+                    className="rounded-xl"
                   >
                     <source
                       src={project.images[3]?.url || ""}
