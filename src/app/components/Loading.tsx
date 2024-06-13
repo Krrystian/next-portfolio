@@ -34,7 +34,7 @@ const Loading: React.FC<LoadingProps> = ({ width, complete }) => {
         </div>
       </div>
       <h2 className="w-screen text-xl text-center opacity-0" id="refresh">
-        Refresh if it's taking too long
+        Refresh if it&apos;s taking too long
       </h2>
     </div>
   );
