@@ -69,7 +69,9 @@ const Page = () => {
   );
   const [prepared, setPrepared] = React.useState(false);
   const [loadingWidth, setLoadingWidth] = React.useState(0);
-
+  const incrementLoading = () => {
+    setLoadingWidth((prev) => prev + 33);
+  };
   project.images.sort((a, b) => (a.position > b.position ? 1 : -1));
   return (
     <>
@@ -105,20 +107,20 @@ const Page = () => {
             className="overflow-hidden rounded-3xl w-full h-full cursor-pointer relative flex flex-row"
             ref={imageRef}
           >
-            <Image
-              src={project.images[0]?.url}
-              alt={"Project img"}
-              priority
-              fill
-              sizes="full"
-              className="object-cover"
-              onLoad={() => {
-                setLoadingWidth((prev) => prev + 33);
-              }}
-              onClick={() => {
-                window.open(project.demo || "", "_blank");
-              }}
-            ></Image>
+            {project.images[0] && (
+              <Image
+                src={project.images[0].url}
+                alt={"Project img"}
+                priority
+                fill
+                sizes="full"
+                className="object-cover"
+                onLoad={incrementLoading}
+                onClick={() => {
+                  window.open(project.demo, "_blank");
+                }}
+              ></Image>
+            )}
           </motion.div>
         </div>
         <div
@@ -133,15 +135,17 @@ const Page = () => {
               height: size,
             }}
           >
-            <Image
-              src={project.images[1]?.url}
-              priority
-              alt={"Project img"}
-              fill
-              sizes="full"
-              className="object-cover absolute"
-              onLoad={() => setLoadingWidth((prev) => prev + 33)}
-            ></Image>
+            {project.images[1] && (
+              <Image
+                src={project.images[1].url}
+                priority
+                alt={"Project img"}
+                fill
+                sizes="full"
+                className="object-cover absolute"
+                onLoad={incrementLoading}
+              ></Image>
+            )}
             <motion.div
               style={{
                 height: padding,
@@ -149,15 +153,17 @@ const Page = () => {
               className="relative w-full flex flex-row bg-white overflow-hidden"
             >
               <div className="relative w-[50%] flex justify-center items-center">
-                <Image
-                  src={project.images[2]?.url}
-                  priority
-                  alt={"Project img"}
-                  fill
-                  sizes="full"
-                  className="object-cover"
-                  onLoad={() => setLoadingWidth((prev) => prev + 33)}
-                ></Image>
+                {project.images[2] && (
+                  <Image
+                    src={project.images[2].url}
+                    priority
+                    alt={"Project img"}
+                    fill
+                    sizes="full"
+                    className="object-cover"
+                    onLoad={incrementLoading}
+                  ></Image>
+                )}
               </div>
               <div className="w-full p-16">
                 <p className="text-7xl w-full font-bold pb-8 tracking-wide">
@@ -196,7 +202,6 @@ const Page = () => {
                     src={project.images[3]?.url || ""}
                     width={1280}
                     height={720}
-                    className=""
                     controls
                   >
                     <source
