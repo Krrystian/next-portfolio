@@ -106,7 +106,7 @@ const Page = () => {
             ref={imageRef}
           >
             <Image
-              src={project.images[0]?.url || ""}
+              src={project.images[0]?.url}
               alt={"Project img"}
               fill
               className="object-cover"
@@ -130,7 +130,7 @@ const Page = () => {
             }}
           >
             <Image
-              src={project.images[1]?.url || ""}
+              src={project.images[1]?.url}
               alt={"Project img"}
               fill
               className="object-cover absolute"
@@ -144,7 +144,7 @@ const Page = () => {
             >
               <div className="relative w-[50%] flex justify-center items-center">
                 <Image
-                  src={project.images[2]?.url || ""}
+                  src={project.images[2]?.url}
                   alt={"Project img"}
                   fill
                   className="object-cover"
