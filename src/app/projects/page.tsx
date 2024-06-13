@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { useRef, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Loading from "../components/Loading";
 import Link from "next/link";
+import Mouse from "../components/Mouse";
 type Project = {
   id: string;
   title: string;
@@ -92,17 +92,18 @@ const Page = () => {
           }}
         />
       </div>
-
+      <Mouse />
       <section className="scroll-smooth w-screen h-screen relative">
         <div className="pt-[7vh] h-screen w-screen overflow-y-hidden overflow-hidden grid grid-cols-4 p-8">
-          {projects.map((project) => (
-            <Card
-              project={project}
-              complete={() =>
-                setLoadingWidth((prev) => prev + 100 / projects.length)
-              }
-            />
-          ))}
+          {projects &&
+            projects.map((project) => (
+              <Card
+                project={project}
+                complete={() =>
+                  setLoadingWidth((prev) => prev + 100 / projects.length)
+                }
+              />
+            ))}
         </div>
       </section>
     </>

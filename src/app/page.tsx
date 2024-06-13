@@ -13,6 +13,7 @@ import ShowMessageModal from "./components/modals/ShowMessageModal";
 import ProjectModal from "./components/modals/ProjectModal";
 import MenuList from "./components/MenuList";
 import Loading from "./components/Loading";
+import Mouse from "./components/Mouse";
 
 //LINKI NA GŁÓWNEJ STRONIE ZROBIĆ
 //DB pozmieniac zdjecia na lepsze
@@ -187,6 +188,7 @@ export default function Home() {
           }}
         />
       </div>
+      <Mouse />
       <main className="relative">
         <ScrollBar />
         <AddSkillModal />

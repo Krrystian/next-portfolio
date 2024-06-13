@@ -23,7 +23,6 @@ const Mouse: React.FC<MouseProps> = ({ element }) => {
     x: useSpring(mouse.x, { stiffness: 300, damping: 20, mass: 0.5 }),
     y: useSpring(mouse.y, { stiffness: 300, damping: 20, mass: 0.5 }),
   };
-
   const handleMouseMove = (e: MouseEvent) => {
     manageMouse(e);
   };
@@ -60,7 +59,7 @@ const Mouse: React.FC<MouseProps> = ({ element }) => {
       }}
       animate={{ width: cursorSize, height: cursorSize, scale: 1 }}
     >
-      <motion.div animate={{ opacity: isHovered ? 1 : 0 }}>View</motion.div>
+      <motion.div animate={{ opacity: isHovered ? 1 : 0 }}>Demo</motion.div>
     </motion.div>
   );
 };
