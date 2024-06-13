@@ -185,14 +185,14 @@ export default function Home() {
           }}
         />
       </div>
-      <Mouse />
       <main className="relative">
+        <Mouse />
         <ScrollBar />
         <AddSkillModal />
         <ShowMessageModal />
         <ProjectModal />
         <div
-          className="h-screen min-w-screen flex justify-center items-center md:sticky top-0"
+          className="h-screen min-w-screen flex justify-center items-center md:sticky bg-white top-0"
           id="landing_page"
         >
           <div className="flex flex-col gap-4">

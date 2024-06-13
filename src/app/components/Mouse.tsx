@@ -51,11 +51,12 @@ const Mouse: React.FC<MouseProps> = ({ element }) => {
 
   return (
     <motion.div
-      className=" hidden md:fixed backdrop-invert rounded-full pointer-events-none z-50 md:flex justify-center items-center"
+      className="hidde bg-black md:fixed backdrop-invert rounded-full pointer-events-none z-50 md:flex justify-center items-center"
       style={{
         x: smoothMouse.x,
         y: smoothMouse.y,
         mixBlendMode: isHovered ? "normal" : "difference",
+        filter: isHovered ? "" : "invert(1)",
         backgroundColor: isHovered ? "white" : "black",
       }}
       animate={{ width: cursorSize, height: cursorSize, scale: 1 }}
