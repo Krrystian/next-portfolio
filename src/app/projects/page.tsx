@@ -33,6 +33,8 @@ const Card = ({
             project.images.find((image: any) => image.main == true)?.url || ""
           }
           alt={"Project image"}
+          priority
+          sizes="full"
           fill
           className="object-cover group-hover:scale-125 duration-300 transition-all"
           onLoad={complete}

@@ -88,8 +88,8 @@ const Page = () => {
         />
       </div>
       <Mouse element={imageRef} />
-      <ScrollBar />
       <section className="relative w-screen top-[7vh] flex flex-col min-h-[100vh] px-16 items-center">
+        <ScrollBar />
         <div className="grid grid-cols-2 gap-16 items-center w-full h-[93vh] top-[7vh] pb-24 sticky ">
           <div className="flex flex-col gap-4">
             <h1 className="text-9xl font-extrabold text-left w-full pb-16">
@@ -108,9 +108,13 @@ const Page = () => {
             <Image
               src={project.images[0]?.url}
               alt={"Project img"}
+              priority
               fill
+              sizes="full"
               className="object-cover"
-              onLoad={() => setLoadingWidth((prev) => prev + 33)}
+              onLoad={() => {
+                setLoadingWidth((prev) => prev + 33);
+              }}
               onClick={() => {
                 window.open(project.demo || "", "_blank");
               }}
@@ -131,8 +135,10 @@ const Page = () => {
           >
             <Image
               src={project.images[1]?.url}
+              priority
               alt={"Project img"}
               fill
+              sizes="full"
               className="object-cover absolute"
               onLoad={() => setLoadingWidth((prev) => prev + 33)}
             ></Image>
@@ -145,8 +151,10 @@ const Page = () => {
               <div className="relative w-[50%] flex justify-center items-center">
                 <Image
                   src={project.images[2]?.url}
+                  priority
                   alt={"Project img"}
                   fill
+                  sizes="full"
                   className="object-cover"
                   onLoad={() => setLoadingWidth((prev) => prev + 33)}
                 ></Image>
