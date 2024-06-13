@@ -35,18 +35,19 @@ const Mouse: React.FC<MouseProps> = ({ element }) => {
 
   useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);
-    if (element?.current) {
-      element.current.addEventListener("mouseenter", enterMouse);
-      element.current.addEventListener("mouseleave", leaveMouse);
+    const currentElement = element?.current;
+    if (currentElement) {
+      currentElement.addEventListener("mouseenter", enterMouse);
+      currentElement.addEventListener("mouseleave", leaveMouse);
     }
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      if (element?.current) {
-        element.current.addEventListener("mouseenter", enterMouse);
-        element.current.addEventListener("mouseleave", leaveMouse);
+      if (currentElement) {
+        currentElement.removeEventListener("mouseenter", enterMouse);
+        currentElement.removeEventListener("mouseleave", leaveMouse);
       }
     };
-  }, []);
+  }, [element]);
 
   return (
     <motion.div
