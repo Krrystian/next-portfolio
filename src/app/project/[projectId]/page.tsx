@@ -100,14 +100,14 @@ const Page = () => {
             {project.description.map((desc, index) => (
               <p
                 key={index}
-                className="md:text-2xl text-sm text-left px-4 md:px-0"
+                className="md:text-2xl text-xl text-justify px-4 md:px-0"
               >
                 {desc}
               </p>
             ))}
           </div>
           <motion.div
-            className="overflow-hidden blur-xl md:opacity-100 opacity-60 md:blur-0 rounded-3xl md:w-full w-screen h-full cursor-pointer md:relative absolute z-[-1] md:z-auto flex flex-row"
+            className="overflow-hidden blur-xl md:opacity-100 opacity-40 md:blur-0 rounded-3xl md:w-full w-screen h-full cursor-pointer md:relative absolute z-[-1] md:z-auto flex flex-row"
             ref={imageRef}
           >
             {project.images[0] && (

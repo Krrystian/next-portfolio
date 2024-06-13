@@ -27,7 +27,7 @@ const Card = ({
       href={`/project/${project.id}`}
       className="relative bg-white w-full h-full overflow-hidden flex items-center justify-center cursor-pointer group"
     >
-      <div className="absolute w-full h-full group-hover:grayscale duration-300 transition-all">
+      <div className="absolute w-full h-full lg:group-hover:grayscale duration-300 transition-all">
         <Image
           src={
             project.images.find((image: any) => image.main == true)?.url || ""

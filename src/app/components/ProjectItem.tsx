@@ -30,7 +30,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   };
   return (
     <div
-      className={`grid grid-cols-1 md:grid-cols-2 w-screen min-h-[93vh] text-white z-10 bg-[#191919] md:sticky top-[7vh]`}
+      className={`grid grid-cols-1 md:grid-cols-2 w-full min-h-[93vh] text-white z-10 bg-[#191919] md:sticky top-[7vh]`}
     >
       {reverse ? (
         <>
