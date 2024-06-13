@@ -15,9 +15,6 @@ import MenuList from "./components/MenuList";
 import Loading from "./components/Loading";
 import Mouse from "./components/Mouse";
 
-//LINKI NA GŁÓWNEJ STRONIE ZROBIĆ
-//DB pozmieniac zdjecia na lepsze
-
 type Skill = {
   id: number;
   icon: string;
