@@ -96,8 +96,9 @@ const Page = () => {
       <section className="scroll-smooth w-screen h-screen relative">
         <div className="pt-[7vh] h-screen w-screen overflow-y-hidden overflow-hidden grid grid-cols-4 p-8">
           {projects &&
-            projects.map((project) => (
+            projects.map((project, index) => (
               <Card
+                key={index}
                 project={project}
                 complete={() =>
                   setLoadingWidth((prev) => prev + 100 / projects.length)
